@@ -14,6 +14,8 @@ For more information using terraform, please see:
 
 ## USAGE
 
+* terraform get
+
 * terraform plan
 
 * terraform apply 
