@@ -12,6 +12,7 @@ variable subnet_private_cidr_block      { default = "10.0.2.0/24" }
 variable subnet_application_cidr_block  { default = "10.0.3.0/24" }
 
 
+# NOTE: Get creds from environment variables
 provider "google" {
     region = "${var.region}"
 }
@@ -22,28 +23,28 @@ resource "google_compute_network" "network" {
 }
 
 resource "google_compute_subnetwork" "subnet_management" {
-  name          = "management"
+  name          = "${var.environment}-management-subnet"
   ip_cidr_range = "${var.subnet_management_cidr_block}"
   network       = "${google_compute_network.network.name}"
   region        = "${var.region}"
 }
 
 resource "google_compute_subnetwork" "subnet_public" {
-  name          = "public"
+  name          = "${var.environment}-public-subnet"
   ip_cidr_range = "${var.subnet_public_cidr_block}"
   network       = "${google_compute_network.network.name}"
   region        = "${var.region}"
 }
 
 resource "google_compute_subnetwork" "subnet_private" {
-  name          = "private"
+  name          = "${var.environment}-private-subnet"
   ip_cidr_range = "${var.subnet_private_cidr_block}"
   network       = "${google_compute_network.network.name}"
   region        = "${var.region}"
 }
 
 resource "google_compute_subnetwork" "subnet_application" {
-  name          = "application"
+  name          = "${var.environment}-application-subnet"
   ip_cidr_range = "${var.subnet_application_cidr_block}"
   network       = "${google_compute_network.network.name}"
   region        = "${var.region}"
