@@ -1,4 +1,4 @@
-### VARIALES ###
+### VARIABLES ###
 
 # TAGS
 variable application_dns  { default = "www.example.com" }  # ex. "www.example.com"
@@ -21,8 +21,8 @@ variable restricted_src_address { default = "0.0.0.0/0" }
 # Application
 variable docker_image   { default = "f5devcentral/f5-demo-app:google" }
 
-variable image_name     {}
 variable instance_type  { default = "n1-standard-1" }
+variable image_name     { default = "ubuntu-os-cloud/ubuntu-1604-lts" }
 
 variable admin_username {}
 variable admin_password {}
