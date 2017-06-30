@@ -22,7 +22,7 @@ variable timezone             { default = "UTC" }
 variable management_gui_port  { default = "8443" }
 
 # PROXY:
-variable image_id        {}
+variable image_name        {}
 variable instance_type   {}
 
 # SECURITY
@@ -100,7 +100,7 @@ resource "google_compute_instance" "bigip" {
     machine_type = "${var.instance_type}"
     zone = "${var.zone}"
     disk {
-        image = "${var.image_id}"
+        image = "${var.image_name}"
     }
     disk {
         type = "local-ssd"

@@ -254,7 +254,7 @@ resource "azurerm_virtual_machine_scale_set" "app" {
   }
 
   # plan {
-  #   name          = "${var.image_id}"
+  #   name          = "${var.image_name}"
   #   publisher     = "XXXXX" 
   #   product       = "XXXXXXXXXXX"
   # }
