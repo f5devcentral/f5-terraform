@@ -19,7 +19,7 @@ variable subnet_id      {}
 variable restricted_src_address { default = "0.0.0.0/0" }
 
 # Application
-variable docker_image   { default = "f5devcentral/f5-demo-app:latest" }
+variable docker_image   { default = "f5devcentral/f5-demo-app:google" }
 
 variable image_name     {}
 variable instance_type  { default = "n1-standard-1" }
@@ -85,9 +85,9 @@ resource "google_compute_instance_template" "instance_template" {
     subnetwork = "${var.subnet_id}"
 
     # Add Public IP to instances
-    # access_config {
-    #   nat_ip = "" 
-    # }
+    access_config {
+      nat_ip = "" 
+    }
 
   }
 
