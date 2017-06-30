@@ -140,7 +140,7 @@ resource "azurerm_public_ip" "app_lb_public_ip" {
 
 
 resource "azurerm_lb" "app_lb" {
-  # depends_on          = [ "azurerm_public_ip.app_lb_public_ip" ]
+  depends_on          = [ "azurerm_public_ip.app_lb_public_ip" ]
   name                = "${var.application}-${var.purpose}-lb"
   location            = "${var.region}"
   resource_group_name = "${var.resource_group}"
