@@ -70,7 +70,7 @@ data "template_file" "user_data" {
 resource "google_compute_instance_template" "instance_template" {
   # Must be a match of regex '(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?)'
   name           = "${var.application}-instance-template"
-  machine_type   = "${var.image_name}"
+  machine_type   = "${var.instance_type}"
   can_ip_forward = false
 
   # Must be a match of regex '(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?)'
@@ -85,9 +85,9 @@ resource "google_compute_instance_template" "instance_template" {
     subnetwork = "${var.subnet_id}"
 
     # Add Public IP to instances
-    access_config {
-      nat_ip = "" 
-    }
+    # access_config {
+    #   nat_ip = "" 
+    # }
 
   }
 
@@ -153,21 +153,25 @@ resource "google_compute_autoscaler" "autoscaler" {
   }
 }
 
-resource "google_compute_forwarding_rule" "lb_rule" {
-  name       = "${var.application}-${var.purpose}-lb-rule"
-  target     = "${google_compute_target_pool.target_pool.self_link}"
-  port_range = "80"
-  # network = "${var.network}"
-  # subnetwork = "${var.subnet_id}"
+resource "google_compute_address" "public_ip" {
+  name = "${var.application}-lb-public-ip"
 }
 
+resource "google_compute_forwarding_rule" "lb_rule" {
+  name       = "${var.application}-${var.purpose}-lb-rule"
+  ip_address = "${google_compute_address.public_ip.address}"
+  port_range = "80"
+  target     = "${google_compute_target_pool.target_pool.self_link}"
+  # network = "${var.network}"
+  # subnetwork = "${var.subnet_id}"
 
+}
 
 ### OUTPUTS ###
 
 
 output "sg_id" { value = "${google_compute_firewall.app-firewall.self_link}" }
-
+output "lb_public_ip" { value = "${google_compute_address.public_ip.address}" }
 
 
 
