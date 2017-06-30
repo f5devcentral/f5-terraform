@@ -17,7 +17,7 @@ variable vnet_id        {}
 variable subnet_id      {}
 
 # PROXY
-variable image_id       {}
+variable image_name     {}
 variable instance_type  { default = "Standard_D3_v2" }
 variable bigip_version  { default = "13.0.021"       }
 
@@ -237,7 +237,7 @@ resource "azurerm_virtual_machine" "bigip" {
   storage_image_reference {
     publisher = "f5-networks"                
     offer     = "f5-big-ip-hourly"
-    sku       = "${var.image_id}"
+    sku       = "${var.image_name}"
     version   = "${var.bigip_version}"
   }
 
@@ -265,7 +265,7 @@ resource "azurerm_virtual_machine" "bigip" {
   }
 
   plan {
-    name          = "${var.image_id}"
+    name          = "${var.image_name}"
     publisher     = "f5-networks" 
     product       = "f5-big-ip-hourly"
   }
