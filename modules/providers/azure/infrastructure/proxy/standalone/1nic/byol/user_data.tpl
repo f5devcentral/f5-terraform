@@ -83,7 +83,7 @@ f5-rest-node $libs_dir/f5-cloud-libs/scripts/onboard.js \
 
 # SOME HIGH LEVEL CONFIG PARAMS
 
-region=${region}
+region="${region}"
 
 applicationName=${application}
 virtualServiceDns=${vs_dns_name}

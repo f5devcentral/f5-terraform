@@ -90,9 +90,8 @@ f5-rest-node $libs_dir/f5-cloud-libs/scripts/onboard.js \
 --module ltm:nominal \
 --module asm:nominal \
 --module avr:nominal \
---ping www.f5.com 30 15 \ 
 --license $${licenseKey1} \
-
+--ping www.f5.com 30 15 \ 
 
 
 ############ BEGIN CUSTOM CONFIG ############
