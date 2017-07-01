@@ -159,7 +159,7 @@ tmsh modify ltm policy app-ltm-policy rules add { associate-asm-policy { actions
 
 
 # POOL = STATIC
-tmsh create ltm pool $${applicationPoolName} monitor http members add { $${applicationPoolAddress} }
+tmsh create ltm pool $${applicationPoolName} monitor http members add { $${applicationPoolAddress}:$${applicationPort} }
 
 # SERVICE INSERTION: CREATE VIRTUAL
 
