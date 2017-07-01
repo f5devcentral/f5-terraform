@@ -69,7 +69,8 @@ data "template_file" "user_data" {
 
 resource "google_compute_instance_template" "instance_template" {
   # Must be a match of regex '(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?)'
-  name           = "${var.application}-instance-template"
+  # name           = "${var.application}-instance-template"
+  name_prefix  = "${var.application}-instance-template-"
   machine_type   = "${var.instance_type}"
   can_ip_forward = false
 
