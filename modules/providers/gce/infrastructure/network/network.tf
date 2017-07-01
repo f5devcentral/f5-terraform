@@ -49,3 +49,9 @@ resource "google_compute_subnetwork" "subnet_application" {
   network       = "${google_compute_network.network.name}"
   region        = "${var.region}"
 }
+
+output "network"            { value = "${google_compute_network.network.name}"  }
+output "subnet_management"  { value = "${google_compute_subnetwork.subnet_management.network}"  }
+output "subnet_public"      { value = "${google_compute_subnetwork.subnet_public.network}"  }
+output "subnet_private"     { value = "${google_compute_subnetwork.subnet_private.network}"  }
+output "subnet_application" { value = "${google_compute_subnetwork.subnet_application.network}"  }
