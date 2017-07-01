@@ -81,6 +81,7 @@ data "template_file" "user_data" {
     dns_server            = "${var.dns_server}"
     ntp_server            = "${var.ntp_server}"
     timezone              = "${var.timezone}"
+    region                = "${var.region}"
     application           = "${var.application}"
     vs_dns_name           = "${var.vs_dns_name}"
     vs_address            = "${var.vs_address}"
