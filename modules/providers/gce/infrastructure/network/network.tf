@@ -20,7 +20,38 @@ provider "google" {
 resource "google_compute_network" "network" {
   name                    = "${var.environment}-network"
   auto_create_subnetworks = "false"
+
+  provisioner "local-exec" {
+    command = <<EOF
+      echo "Address Eventual Consistent APIs: -subnet is not ready, resourceNotReady"
+      echo "See https://github.com/hashicorp/terraform/issues/2499"
+      echo "https://github.com/hashicorp/terraform/issues/14970"
+      sleep 15
+EOF
+
+  }
+
+
 }
+
+resource "google_compute_subnetwork" "subnet_public" {
+  name          = "${var.environment}-public-subnet"
+  ip_cidr_range = "${var.subnet_public_cidr_block}"
+  network       = "${google_compute_network.network.name}"
+  region        = "${var.region}"
+
+  provisioner "local-exec" {
+    command = <<EOF
+      echo "Address Eventual Consistent APIs: -subnet is not ready, resourceNotReady"
+      echo "See https://github.com/hashicorp/terraform/issues/2499"
+      echo "https://github.com/hashicorp/terraform/issues/14970"
+      sleep 15
+EOF
+
+  }
+
+}
+
 
 resource "google_compute_subnetwork" "subnet_management" {
   name          = "${var.environment}-management-subnet"
@@ -29,12 +60,6 @@ resource "google_compute_subnetwork" "subnet_management" {
   region        = "${var.region}"
 }
 
-resource "google_compute_subnetwork" "subnet_public" {
-  name          = "${var.environment}-public-subnet"
-  ip_cidr_range = "${var.subnet_public_cidr_block}"
-  network       = "${google_compute_network.network.name}"
-  region        = "${var.region}"
-}
 
 resource "google_compute_subnetwork" "subnet_private" {
   name          = "${var.environment}-private-subnet"
