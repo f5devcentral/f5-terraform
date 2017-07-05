@@ -17,21 +17,12 @@ variable subnet_application_cidr_block  { default = "10.0.3.0/24" }
 provider "azurerm" {
 }
 
-resource "azurerm_resource_group" "resource_group" {
-  name     = "${var.resource_group}"
-  location = "${var.region}"
-
-  tags {
-    environment = "${var.environment}-${var.resource_group}"
-  }
-}
-
 # create a virtual network
 resource "azurerm_virtual_network" "network" {
     name = "${var.environment}-network"
     address_space = ["${var.vnet_cidr_block}"]
     location = "West US"
-    resource_group_name = "${azurerm_resource_group.resource_group.name}"
+    resource_group_name = "${var.resource_group}"
 }
 
 # create subnets
