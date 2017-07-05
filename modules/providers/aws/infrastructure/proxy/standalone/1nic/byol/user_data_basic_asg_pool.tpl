@@ -45,7 +45,7 @@ if ifconfig mgmt; then managementInterface=mgmt; else managementInterface=eth0; 
 managementAddress=$(egrep -m 1 -A 1 $managementInterface /var/lib/dhclient/dhclient.leases | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
 managementGuiPort=${management_gui_port}
 
-licenseKey1=${registration_key}
+licenseKey1=${license_key}
 
 
 ### DOWNLOAD ONBOARDING LIBS
@@ -89,8 +89,8 @@ f5-rest-node $libs_dir/f5-cloud-libs/scripts/onboard.js \
 --ntp $${ntpServer} \
 --tz $${timezone} \
 --module ltm:nominal \
---ping www.f5.com 30 15 \ 
 --license $${licenseKey1} \
+--ping www.f5.com 30 15 \ 
 
 
 

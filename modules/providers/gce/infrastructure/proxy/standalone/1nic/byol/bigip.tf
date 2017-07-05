@@ -46,7 +46,7 @@ variable pool_member_port    { default = "80" }
 variable pool_name           { default = "www.example.com" }  # DNS (ex. "www.example.com") used to create fqdn node if there's no Service Discovery iApp 
 
 # LICENSE
-variable registration_key {}
+variable license_key {}
 
 
 ### RESOURCES ###
@@ -92,7 +92,7 @@ data "template_file" "user_data" {
     pool_member_port      = "${var.pool_member_port}"
     site_ssl_cert         = "${var.site_ssl_cert}"
     site_ssl_key          = "${var.site_ssl_key}"
-    registration_key      = "${var.registration_key}"
+    license_key           = "${var.license_key}"
   }
 }
 

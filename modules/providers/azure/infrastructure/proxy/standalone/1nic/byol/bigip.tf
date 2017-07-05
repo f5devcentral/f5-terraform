@@ -50,7 +50,7 @@ variable vs_port          { default = "443" }
 variable pool_member_port { default = "80" }
 variable pool_name        { default = "www.example.com" }  # DNS (ex. "www.example.com") used to create fqdn node if there's no Service Discovery iApp 
 variable pool_tag_key     { default = "Name" }
-variable pool_tag_value   { default = "dev-demo-instance" }
+variable pool_tag_value   { default = "dev-www-instance" }
 
 variable azure_subscription_id  { default = "none" }
 variable azure_tenant_id        { default = "none" }
@@ -60,7 +60,7 @@ variable azure_sp_secret        { default = "none" }
 
 
 # LICENSE
-variable registration_key {}
+variable license_key {}
 
 
 ### RESOURCES ###
@@ -222,7 +222,7 @@ data "template_file" "user_data" {
     azure_resource_group  = "${var.azure_resource_group}"
     azure_client_id       = "${var.azure_client_id}"
     azure_sp_secret       = "${var.azure_sp_secret}"
-    registration_key      = "${var.registration_key}"
+    license_key           = "${var.license_key}"
   }
 }
 

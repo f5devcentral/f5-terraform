@@ -28,7 +28,7 @@ dnsServer=${dns_server}
 ntpServer=${ntp_server}
 timezone=${timezone}
 
-licenseKey1=${registration_key}
+licenseKey1=${license_key}
 
 
 ### DOWNLOAD ONBOARDING LIBS
@@ -71,11 +71,12 @@ f5-rest-node $libs_dir/f5-cloud-libs/scripts/onboard.js \
 --dns $${dnsServer} \
 --ntp $${ntpServer} \
 --tz $${timezone} \
+--license $${licenseKey1} \
 --module ltm:nominal \
 --module asm:nominal \
 --module avr:nominal \
 --ping www.f5.com 30 15 \ 
---license $${licenseKey1} \
+
 
 
 

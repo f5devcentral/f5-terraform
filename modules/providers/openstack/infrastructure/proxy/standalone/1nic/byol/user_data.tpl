@@ -36,7 +36,7 @@ dnsServer=${dns_server}
 ntpServer=${ntp_server}
 timezone=${timezone}
 
-bigip_license_key=${registration_key}
+license_key=${license_key}
 
 # Add SSH Key
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClW+UyY2eWczwnEGcEtwR/ISURqmdQIpgicgVvUvZTilE5KstuyBXznpxYT3m2H/7uh5g5syAmS7rX8wSsrbtRjkFgWmDIRPaj3Dqlqqq9N+3TI3mUhMPPWuFZxhW2rK7T6OrWUw5cnJstb89OCQjH4ptqzxIV135re3nT1cJx9JZKxBeYM/tMqZHjAmCwBlj8ndbaidg/f4P0cXa3BS8etcuFGoMwnzACNtkpf6/juodedHbOW9mjamdIoOEVawHiuZNry4emxgT8x9KzBnKHAwRKhLMY/JSc+5z7n21JfDdUIa78Vv3yM3LIaZmpbBPQ7tpJpt4SmYfbhWIUm+z9 a.applebaum@f5.com" >> /home/root/.ssh/authorized_keys
@@ -79,7 +79,7 @@ f5-rest-node $libs_dir/f5-cloud-libs/scripts/onboard.js \
 --ntp $${ntpServer} \
 --tz $${timezone} \
 --module ltm:nominal \
---license $${bigip_license_key} \
+--license $${license_key} \
 --ping www.f5.com 30 15 \ 
 
 

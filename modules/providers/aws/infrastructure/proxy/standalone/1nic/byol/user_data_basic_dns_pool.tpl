@@ -88,9 +88,10 @@ f5-rest-node /config/cloud/aws/node_modules/f5-cloud-libs/scripts/onboard.js \
 --dns $${dnsServer} \
 --ntp $${ntpServer} \
 --tz $${timezone} \
+--license $${licenseKey1} \
 --module ltm:nominal \
 --ping www.f5.com 30 15 \ 
---license $${licenseKey1} \
+
 
 
 
