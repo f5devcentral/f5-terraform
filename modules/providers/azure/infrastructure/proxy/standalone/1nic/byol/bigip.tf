@@ -267,7 +267,7 @@ resource "azurerm_virtual_machine" "bigip" {
   plan {
     name          = "${var.image_name}"
     publisher     = "f5-networks" 
-    product       = "f5-big-ip-hourly"
+    product       = "f5-big-ip"
   }
 
   tags {
