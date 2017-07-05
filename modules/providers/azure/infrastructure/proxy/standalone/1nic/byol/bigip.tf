@@ -9,15 +9,16 @@ variable costcenter     { default = "f5costcenter" }
 variable application    { default = "f5app"        }  
 
 # PLACEMENT
-variable region         { default = "West US"         }
-variable location       { default = "westus"          } 
+variable region         { default = "West US"           }
+variable location       { default = "westus"            } 
 variable resource_group { default = "proxy.example.com" }
 
 variable vnet_id        {}
 variable subnet_id      {}
 
 # PROXY
-variable image_name     {}
+variable image_name     { default = "f5-bigip-virtual-edition-best-byol" }
+variable product        { default = "f5-big-ip"      }
 variable instance_type  { default = "Standard_D3_v2" }
 variable bigip_version  { default = "13.0.021"       }
 
@@ -270,7 +271,7 @@ resource "azurerm_virtual_machine" "bigip" {
   plan {
     name          = "${var.image_name}"
     publisher     = "f5-networks" 
-    product       = "f5-big-ip"
+    product       = "${var.product}"
   }
 
   tags {

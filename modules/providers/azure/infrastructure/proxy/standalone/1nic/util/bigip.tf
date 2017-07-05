@@ -17,9 +17,10 @@ variable vnet_id        {}
 variable subnet_id      {}
 
 # PROXY
-variable image_name     {}
-variable instance_type  { default = "Standard_D3_v2"}
-variable bigip_version  { default = "13.0.021"}
+variable image_name     { default = "f5-bigip-virtual-edition-25m-best-hourly" }
+variable product        { default = "f5-big-ip-hourly" }
+variable instance_type  { default = "Standard_D3_v2"   }
+variable bigip_version  { default = "13.0.021"         }
 
 # SYSTEM
 variable instance_name        { default = "f5vm01"}
@@ -60,6 +61,9 @@ variable azure_sp_secret        { default = "none" }
 
 
 ### RESOURCES ###
+
+provider "azurerm" {
+}
 
 resource "azurerm_network_security_group" "sg" {
   # "Linux host name cannot exceed 64 characters in length or contain the following characters: 
@@ -231,7 +235,7 @@ resource "azurerm_virtual_machine" "bigip" {
 
   storage_image_reference {
     publisher = "f5-networks"                
-    offer     = "f5-big-ip-hourly"
+    offer     = "${var.product}"
     sku       = "${var.image_name}"
     version   = "${var.bigip_version}"
   }
@@ -262,7 +266,7 @@ resource "azurerm_virtual_machine" "bigip" {
   plan {
     name          = "${var.image_name}"
     publisher     = "f5-networks" 
-    product       = "f5-big-ip-hourly"
+    product       = "${var.product}"
   }
 
   tags {
