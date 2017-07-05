@@ -11,7 +11,7 @@ variable application    { default = "f5app"        }
 # PLACEMENT
 variable region         { default = "West US"         }
 variable location       { default = "westus"          } 
-variable resource_group { default = "app.example.com" }
+variable resource_group { default = "proxy.example.com" }
 
 variable vnet_id        {}
 variable subnet_id      {}
@@ -64,6 +64,9 @@ variable license_key {}
 
 
 ### RESOURCES ###
+
+provider "azurerm" {
+}
 
 resource "azurerm_network_security_group" "sg" {
   # "Linux host name cannot exceed 64 characters in length or contain the following characters: 
@@ -236,7 +239,7 @@ resource "azurerm_virtual_machine" "bigip" {
 
   storage_image_reference {
     publisher = "f5-networks"                
-    offer     = "f5-big-ip-hourly"
+    offer     = "f5-big-ip"
     sku       = "${var.image_name}"
     version   = "${var.bigip_version}"
   }
