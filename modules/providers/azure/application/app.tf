@@ -30,7 +30,7 @@ variable instance_type        { default = "Standard_A0" }
 
 variable admin_username {}
 variable admin_password {}
-variable ssh_key_public {}
+variable ssh_key_public {}  # string of key ex. "ssh-rsa AAAA..."
 
 # NOTE certs not used below but keeping as optional input in case need to extend
 variable site_ssl_cert  { default = "not-required-if-terminated-on-lb" }

@@ -13,10 +13,11 @@ variable purpose          { default = "public"          }
 variable network_id              {}
 
 # PROXY
+variable flavor_id      {}
 variable image_id       {}
 # variable instance_type  {}
 # variable instance_size  {}
-variable flavor_id {}
+
 
 # SYSTEM
 variable dns_server           { default = "8.8.8.8" }
@@ -28,7 +29,8 @@ variable management_gui_port  { default = "8443" }
 variable admin_username {}
 variable admin_password {}
 
-variable ssh_key_name   {}
+variable ssh_key_public      {}  # string of key ex. "ssh-rsa AAAA..."
+variable ssh_key_name        {}  # example "my-terraform-key"
 variable restricted_src_address { default = "0.0.0.0/0" }
 
 # NOTE certs not used below but keeping as optional input in case need to extend

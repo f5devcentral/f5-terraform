@@ -22,11 +22,12 @@ variable timezone             { default = "UTC" }
 variable management_gui_port  { default = "8443" }
 
 # PROXY:
+variable instance_type     {}
 variable image_name        {}
-variable instance_type   {}
+
 
 # SECURITY
-variable ssh_key_public             {}
+variable ssh_key_public    {}  # string of key ex. "ssh-rsa AAAA..."
 variable restricted_src_address     { default = "0.0.0.0/0" }
 
 variable admin_username {}

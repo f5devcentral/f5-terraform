@@ -19,7 +19,8 @@ variable docker_image   { default = "f5devcentral/f5-demo-app:AWS" }
 variable image_id       {}
 variable instance_type  { default = "t2.small" }
 
-variable ssh_key_name   {}
+
+variable ssh_key_name        {}  # example "my-terraform-key"
 # NOTE certs not used below but keeping as optional input in case need to extend
 variable site_ssl_cert  { default = "not-required-if-terminated-on-lb" }
 variable site_ssl_key   { default = "not-required-if-terminated-on-lb" }

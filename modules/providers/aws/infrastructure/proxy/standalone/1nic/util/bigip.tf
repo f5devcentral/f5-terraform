@@ -15,8 +15,9 @@ variable availability_zone      { default = "us-west-2a" }
 variable subnet_id              {}
 
 # PROXY
-variable image_id       {}
 variable instance_type  { default = "m4.2xlarge" }
+variable image_id       {}
+
 
 # SYSTEM
 variable dns_server           { default = "8.8.8.8" }
@@ -28,7 +29,7 @@ variable management_gui_port  { default = "8443" }
 variable admin_username {}
 variable admin_password {}
 
-variable ssh_key_name   {}
+variable ssh_key_name        {}  # example "my-terraform-key"
 variable restricted_src_address { default = "0.0.0.0/0" }
 
 # NOTE certs not used below but keeping as optional input in case need to extend
@@ -45,7 +46,7 @@ variable vs_port          { default = "443" }
 variable pool_member_port { default = "80" }
 variable pool_name        { default = "www.example.com" }  # DNS (ex. "www.example.com") used to create fqdn node if there's no Service Discovery iApp 
 variable pool_tag_key     { default = "Name" }
-variable pool_tag_value   { default = "dev-demo-instance" }
+variable pool_tag_value   { default = "dev-www-instance" }
 
 
 ### RESOURCES ###

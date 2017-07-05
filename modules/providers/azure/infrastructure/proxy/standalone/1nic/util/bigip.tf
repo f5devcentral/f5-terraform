@@ -17,9 +17,9 @@ variable vnet_id        {}
 variable subnet_id      {}
 
 # PROXY
+variable instance_type  { default = "Standard_D3_v2"   }
 variable image_name     { default = "f5-bigip-virtual-edition-25m-best-hourly" }
 variable product        { default = "f5-big-ip-hourly" }
-variable instance_type  { default = "Standard_D3_v2"   }
 variable bigip_version  { default = "13.0.021"         }
 
 # SYSTEM
@@ -33,8 +33,7 @@ variable management_gui_port  { default = "8443" }
 variable admin_username {}
 variable admin_password {}
 
-variable ssh_key_public {}
-variable ssh_key_name   {}
+variable ssh_key_public {}  # string of key ex. "ssh-rsa AAAA..."
 variable restricted_src_address { default = "0.0.0.0/0" }
 
 # NOTE certs not used below but keeping as optional input in case need to extend

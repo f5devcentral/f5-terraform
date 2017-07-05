@@ -15,8 +15,9 @@ variable availability_zone      { default = "us-west-2a" }
 variable subnet_id              {}
 
 # PROXY
-variable image_id       {}
 variable instance_type  { default = "m4.2xlarge" }
+variable image_id       {}
+
 
 # SYSTEM
 variable dns_server           { default = "8.8.8.8" }
@@ -28,7 +29,7 @@ variable management_gui_port  { default = "8443" }
 variable admin_username {}
 variable admin_password {}
 
-variable ssh_key_name   {}
+variable ssh_key_name        {}  # example "my-terraform-key"
 variable restricted_src_address { default = "0.0.0.0/0" }
 
 # NOTE certs not used below but keeping as optional input in case need to extend
@@ -48,7 +49,7 @@ variable pool_tag_key     { default = "Name" }
 variable pool_tag_value   { default = "dev-demo-instance" }
 
 # LICENSE
-variable license_key {}
+variable license_key {}   # ex. "XXXXX-XXXXX-XXXXXX-XXXXXX"
 
 
 ### RESOURCES ###
