@@ -28,28 +28,28 @@ resource "azurerm_virtual_network" "network" {
 # create subnets
 resource "azurerm_subnet" "subnet_management" {
     name = "${var.environment}-subnet-management"
-    resource_group_name = "${azurerm_resource_group.resource_group.name}"
+    resource_group_name = "${var.resource_group}"
     virtual_network_name = "${azurerm_virtual_network.network.name}"
     address_prefix = "${var.subnet_management_cidr_block}"
 }
 
 resource "azurerm_subnet" "subnet_public" {
     name = "${var.environment}-subnet-public"
-    resource_group_name = "${azurerm_resource_group.resource_group.name}"
+    resource_group_name = "${var.resource_group}"
     virtual_network_name = "${azurerm_virtual_network.network.name}"
     address_prefix = "${var.subnet_public_cidr_block}"
 }
 
 resource "azurerm_subnet" "subnet_private" {
     name = "${var.environment}-subnet-private"
-    resource_group_name = "${azurerm_resource_group.resource_group.name}"
+    resource_group_name = "${var.resource_group}"
     virtual_network_name = "${azurerm_virtual_network.network.name}"
     address_prefix = "${var.subnet_private_cidr_block}"
 }
 
 resource "azurerm_subnet" "subnet_application" {
     name = "${var.environment}-subnet-application"
-    resource_group_name = "${azurerm_resource_group.resource_group.name}"
+    resource_group_name = "${var.resource_group}"
     virtual_network_name = "${azurerm_virtual_network.network.name}"
     address_prefix = "${var.subnet_application_cidr_block}"
 }
