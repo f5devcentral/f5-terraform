@@ -136,6 +136,7 @@ tmsh install sys crypto key site.example.com from-local-file /config/ssl/ssl.key
 
 
 # Advanced Virtual Service
+wait_for_bigip
 
 tmsh create security log profile $${loggingProfileName} application add { splunk-logging { filter replace-all-with { request-type { values add { illegal } } search-all } local-storage disabled logic-operation and remote-storage splunk servers add { 255.255.255.254:1001 } } }
 
