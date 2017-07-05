@@ -235,7 +235,7 @@ data "template_file" "user_data" {
 
 resource "azurerm_virtual_machine_scale_set" "app" {
   name                  = "${var.environment}-app-scaleset"
-  depends_on            = [ "azurerm_lb.app_lb" ]
+  depends_on            = [ "azurerm_lb_rule.lb_rule" ]
   location              = "${var.region}"
   resource_group_name   = "${var.resource_group}"
   upgrade_policy_mode   = "Manual"
