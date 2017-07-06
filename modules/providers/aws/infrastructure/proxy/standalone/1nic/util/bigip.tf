@@ -18,6 +18,8 @@ variable subnet_id              {}
 variable instance_type  { default = "m4.2xlarge" }
 variable image_id       {}
 
+## NETWORK
+variable create_management_public_ip  { default = true }
 
 # SYSTEM
 variable dns_server           { default = "8.8.8.8" }
@@ -201,8 +203,7 @@ data "template_file" "user_data" {
 resource "aws_instance" "bigip" {
     ami = "${var.image_id}"
     instance_type = "${var.instance_type}"
-    associate_public_ip_address = true
-    private_ip = "10.0.1.11"
+    associate_public_ip_address = "${var.create_management_public_ip}"
     availability_zone = "${var.availability_zone}"
     subnet_id = "${var.subnet_id}"
     vpc_security_group_ids = ["${aws_security_group.sg.id}"]

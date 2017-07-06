@@ -25,12 +25,16 @@ variable ntp_server           { default = "0.us.pool.ntp.org" }
 variable timezone             { default = "UTC" }
 variable management_gui_port  { default = "8443" }
 
+# NETWORK
+variable create_management_public_ip  { default = true }
+
 # SECURITY
 variable admin_username {}
 variable admin_password {}
 
 variable ssh_key_name        {}  # example "my-terraform-key"
 variable restricted_src_address { default = "0.0.0.0/0" }
+
 
 # NOTE certs not used below but keeping as optional input in case need to extend
 variable site_ssl_cert  { default = "not-required-if-terminated-on-lb" }
@@ -205,8 +209,7 @@ data "template_file" "user_data" {
 resource "aws_instance" "bigip" {
     ami = "${var.image_id}"
     instance_type = "${var.instance_type}"
-    associate_public_ip_address = true
-    private_ip = "10.0.1.11"
+    associate_public_ip_address = "${var.create_management_public_ip}"
     availability_zone = "${var.availability_zone}"
     subnet_id = "${var.subnet_id}"
     vpc_security_group_ids = ["${aws_security_group.sg.id}"]
