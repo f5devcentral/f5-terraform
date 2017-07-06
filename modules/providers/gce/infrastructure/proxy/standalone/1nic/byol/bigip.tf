@@ -22,9 +22,8 @@ variable timezone             { default = "UTC" }
 variable management_gui_port  { default = "8443" }
 
 # PROXY:
-variable instance_type     {}
-variable image_name        {}
-
+variable instance_type  { default = "n1-standard-1" }
+variable image_name     { default = "f5-7626-networks-public/f5-byol-bigip-13-0-0-2-3-1671-best" }
 
 # SECURITY
 variable ssh_key_public    {}  # string of key ex. "ssh-rsa AAAA..."
@@ -61,16 +60,29 @@ resource "google_compute_firewall" "sg" {
   network = "${var.network}"
 
   allow {
+    protocol = "tcp"
+    ports    = [ "80", "${var.vs_port}" ]
+  }
+
+  source_ranges = [ "0.0.0.0/0" ]
+}
+
+resource "google_compute_firewall" "sg_management" {
+  name    = "${var.environment}-proxy-management-firewall"
+  network = "${var.network}"
+
+  allow {
     protocol = "icmp"
   }
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "443", "8443"]
+    ports    = [ "22", "${var.management_gui_port}" ]
   }
 
   source_ranges = ["${var.restricted_src_address}"]
 }
+
 
 data "template_file" "user_data" {
   template = "${file("${path.module}/user_data.tpl")}"
