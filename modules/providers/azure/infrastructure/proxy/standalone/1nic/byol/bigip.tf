@@ -96,7 +96,7 @@ resource "azurerm_network_security_group" "sg" {
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "8443"
+    destination_port_range     = "${var.management_gui_port}"
     source_address_prefix      = "${var.restricted_src_address}"
     destination_address_prefix = "*"
   }
@@ -108,8 +108,8 @@ resource "azurerm_network_security_group" "sg" {
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "${var.restricted_src_address}"
+    destination_port_range     = "${var.vs_port}"
+    source_address_prefix      = "0.0.0.0/0"
     destination_address_prefix = "*"
   }
 

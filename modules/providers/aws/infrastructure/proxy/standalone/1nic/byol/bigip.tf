@@ -77,8 +77,8 @@ resource "aws_security_group" "sg" {
 
   # MGMT HTTPS access 
   ingress {
-    from_port   = 8443
-    to_port     = 8443
+    from_port   = "${var.management_gui_port}"
+    to_port     = "${var.management_gui_port}"
     protocol    = "tcp"
     cidr_blocks = ["${var.restricted_src_address}"]
   }
@@ -93,8 +93,8 @@ resource "aws_security_group" "sg" {
 
   # VIP HTTPS access from anywhere
   ingress {
-    from_port   = 443
-    to_port     = 443
+    from_port   = "${var.vs_port}"
+    to_port     = "${var.vs_port}"
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
