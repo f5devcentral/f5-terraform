@@ -12,7 +12,7 @@ variable region                 { default = "us-west-2" }
 variable vpc_id                 {}
 variable availability_zones     { default = "us-west-2a,us-west-2b"}
 variable subnet_ids             {}
-
+variable restricted_src_address { default = "0.0.0.0/0" }
 
 # APPLICATION
 variable docker_image   { default = "f5devcentral/f5-demo-app:AWS" }
@@ -43,7 +43,7 @@ resource "aws_security_group" "sg" {
     from_port   = 22 
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["${var.restricted_src_address}"]
   }
 
   ingress {

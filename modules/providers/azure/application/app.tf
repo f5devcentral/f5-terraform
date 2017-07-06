@@ -81,7 +81,7 @@ resource "azurerm_network_security_group" "sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "80"
-    source_address_prefix      = "${var.restricted_src_address}"
+    source_address_prefix      = "0.0.0.0/0"
     destination_address_prefix = "*"
   }
 
@@ -93,7 +93,7 @@ resource "azurerm_network_security_group" "sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefix      = "${var.restricted_src_address}"
+    source_address_prefix      = "0.0.0.0/0"
     destination_address_prefix = "*"
   }
 

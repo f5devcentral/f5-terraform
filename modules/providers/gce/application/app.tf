@@ -48,16 +48,29 @@ resource "google_compute_firewall" "app-firewall" {
   network = "${var.network}"
 
   allow {
+    protocol = "tcp"
+    ports    = [ "80", "443" ]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}
+
+resource "google_compute_firewall" "app-firewall-management" {
+  name    = "${var.application}-app-firewall-management"
+  network = "${var.network}"
+
+  allow {
     protocol = "icmp"
   }
 
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "443" ]
+    ports    = ["22"]
   }
 
   source_ranges = ["${var.restricted_src_address}"]
 }
+
 
 data "template_file" "user_data" {
   template = "${file("${path.module}/user_data.tpl")}"
