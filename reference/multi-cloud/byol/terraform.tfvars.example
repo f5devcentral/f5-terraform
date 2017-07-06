@@ -1,0 +1,160 @@
+# GLOBAL
+
+deployment_name = "demo"
+
+# TAGS 
+application_dns = "www.example.com"
+application = "www"
+environment = "dev"
+owner = "example"
+group = "example"
+costcenter = "cc4353"
+purpose = "public"
+
+public_ssh_key_path =                   # ex. "~/.ssh/my-terraform-key.pem.pub"
+ssh_key_name =                          # ex. "my-terraform-key"
+site_ssl_cert = "../../ssl/website.crt"
+site_ssl_key = "../../ssl/website.key"
+
+# restricted_src_address = "0.0.0.0/0"
+
+# WARNING: Passwords are used in Azure VMs & BIG-IPs
+# Must adhere to https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq
+# Additionally, as we leverage some shell scripts, must also not contain a few bash special character "$" or spaces. 
+admin_username = "custom-admin"
+admin_password =                       # ex. "ExAMple@P1234"  
+
+
+# SYSTEM
+# dns_server = "8.8.8.8"
+# ntp_server = "0.us.pool.ntp.org"
+# timezone = "UTC" 
+
+
+### NETWORK #### 
+# vnet_cidr_block = "10.0.0.0/16"
+
+# a_management_cidr_block = "10.0.0.0/24"
+# a_public_cidr_block = "10.0.1.0/24"
+# a_private_cidr_block = "10.0.2.0/24"
+# a_application_cidr_block = "10.0.3.0/24"
+
+# b_management_cidr_block = "10.0.10.0/24"
+# b_public_cidr_block = "10.0.11.0/24"
+# b_private_cidr_block = "10.0.12.0/24"
+# b_application_cidr_block = "10.0.13.0/24"
+
+
+#### APPLICATION #### 
+
+# docker_image = "f5devcentral/f5-demo-app:latest"
+# aws_docker_image = "f5devcentral/f5-demo-app:AWS"
+# azure_docker_image = "f5devcentral/f5-demo-app:azure"
+# gce_docker_image = "f5devcentral/f5-demo-app:google"
+
+
+# AUTO SCALE
+# app_scale_min                     = 1 
+# app_scale_max                     = 3 
+# app_scale_desired                 = 2 
+# app_scale_down_bytes_threshold    = "10000" 
+# app_scale_up_bytes_threshold      = "35000" 
+app_notification_email             =             # ex. "user@example.com"
+# app_instance_name_prefix           = "appvm" 
+
+#### PROXY #### 
+
+# VIRTUAL SERVICE
+# vs_dns_name = "www.example.com"
+# vs_port = "443"
+
+# SERVICE DISCOVERY
+# pool_member_port = "80"
+# pool_name = "www.example.com"
+# pool_tag_key = "Name" 
+# pool_tag_value = "dev-www-instance"
+
+# pool_azure_resource_group = "app.example.com"
+pool_azure_subscription_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+pool_azure_tenant_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+pool_azure_client_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+pool_azure_sp_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+
+######## PROVIDER SPECIFIC #######
+
+### PLACEMENT
+# AWS
+# aws_region = "us-west-2"
+# aws_az1 = "us-west-2a"
+# aws_az2 = "us-west-2b"
+# aws_availability_zones = "us-west-2a,us-west-2b"
+
+# AZURE
+# azure_region = "West US" 
+# azure_location = "westus"
+
+# GCE
+# gce_region = "us-west1" 
+
+
+
+##### NETWORK
+
+# vnet_azure_resource_group  = "network.example.com" 
+
+
+##### APP:
+# app_aws_instance_type = "t2.small"
+# app_aws_amis = {     
+#         "ap-northeast-1" = "ami-c9e3c0ae"
+#         "ap-northeast-2" = "ami-3cda0852"
+#         "ap-southeast-1" = "ami-6e74ca0d"
+#         "ap-southeast-2" = "ami-92e8e6f1"
+#         "eu-central-1" = "ami-1b4d9e74"
+#         "eu-west-1" = "ami-b5a893d3"
+#         "sa-east-1" = "ami-36187a5a"
+#         "us-east-1" = "ami-e4139df2"
+#         "us-east-2" = "ami-33ab8f56"
+#         "us-west-1" = "ami-30476250"
+#         "us-west-2" = "ami-17ba2a77"
+# }
+
+
+# app_azure_resource_group = "app.example.com"
+# app_azure_instance_type = "Standard_A0"
+# app_instance_name_prefix = "appvm"
+
+# app_gce_instance_type = "n1-standard-1"
+
+### PROXY 
+# proxy_aws_instance_type = "m4.2xlarge" 
+# proxy_aws_amis = {
+        # "ap-northeast-1" = "ami-eb1d2c8c"
+        # "ap-northeast-2" = "ami-dcdf02b2"
+        # "ap-southeast-1" = "ami-9b08b2f8"
+        # "ap-southeast-2" = "ami-67d8d304"
+        # "eu-central-1"   = "ami-c74e91a8"
+        # "eu-west-1"      = "ami-e56d4b85"
+        # "sa-east-1"      = "ami-7d8ee211"
+        # "us-east-1"      = "ami-4c76185a"
+        # "us-east-2"      = "ami-2be6c14e"
+        # "us-west-1"      = "ami-e56d4b85"
+        # "us-west-2"      = "ami-a4bc27c4"
+# }
+
+
+# proxy_azure_resource_group  = "proxy.example.com" 
+# proxy_azure_instance_type   = "Standard_D3_v2" 
+# proxy_azure_image_id        = "f5-bigip-virtual-edition-25m-best-byol" 
+
+# Application
+# proxy_gce_instance_type     = "n1-standard-4" 
+
+
+
+# LICENSE   
+aws_proxy_license_key_1    =           # ex. "ABJDN-WFYWA-AMCCT-LCVMY-HQYFTDF"
+azure_proxy_license_key_1  = 
+gce_proxy_license_key_1    = 
+

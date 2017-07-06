@@ -1,3 +1,9 @@
+# Terraform cache
+*.terraform
+*.backup
+*.tfstate
+*.tfvars
+
 # Mac files
 .DS_Store
 
@@ -58,3 +64,5 @@ docs/_build/
 
 # PyBuilder
 target/
+
+
