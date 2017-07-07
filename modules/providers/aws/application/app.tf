@@ -48,8 +48,8 @@ variable scale_desired  { default = 1 }
 ### RESOURCES ###
 
 resource "aws_security_group" "sg" {
-  name        = "${var.application}_app_sg"
-  description = "${var.application}_app_ports"
+  name        = "${var.application}-app-sg"
+  description = "${var.application}-app-ports"
   vpc_id      = "${var.vpc_id}"
 
   # ssh access from anywhere
@@ -126,7 +126,7 @@ resource "aws_launch_configuration" "as_conf" {
 
 # NOTE App Pool Name Hardcoded
 resource "aws_autoscaling_group" "asg" {
-  name                      = "${var.application}_app_asg"
+  name                      = "${var.environment}-${var.application}-app-asg"
   vpc_zone_identifier       = ["${split(",", var.subnet_ids)}"] 
   availability_zones        = ["${split(",", var.availability_zones)}"]
   min_size                  = "${var.scale_min}"
@@ -175,7 +175,7 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 resource "aws_autoscaling_policy" "asg_policy" {
-  name                   = "${var.application}_app_asg_policy"
+  name                   = "${var.application}-app-asg-policy"
   scaling_adjustment     = 2
   adjustment_type        = "ChangeInCapacity"
   cooldown               = 300

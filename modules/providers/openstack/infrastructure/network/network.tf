@@ -24,7 +24,7 @@ resource "openstack_networking_network_v2" "network_management" {
 }
 
 resource "openstack_networking_subnet_v2" "subnet_management" {
-  name       = "subnet_management"
+  name       = "${var.environment}-subnet-management"
   network_id = "${openstack_networking_network_v2.network_management.id}"
   cidr       = "${var.subnet_management_cidr_block}"
   ip_version = 4
@@ -49,7 +49,7 @@ resource "openstack_networking_network_v2" "network_private" {
 }
 
 resource "openstack_networking_subnet_v2" "subnet_private" {
-  name       = "subnet_private"
+  name       = "${var.environment}-subnet-private"
   network_id = "${openstack_networking_network_v2.network_private.id}"
   cidr       = "${var.subnet_private_cidr_block}"
   ip_version = 4
@@ -61,7 +61,7 @@ resource "openstack_networking_network_v2" "network_application" {
 }
 
 resource "openstack_networking_subnet_v2" "subnet_application" {
-  name       = "subnet_application"
+  name       = "${var.environment}-subnet-application"
   network_id = "${openstack_networking_network_v2.network_application.id}"
   cidr       = "${var.subnet_application_cidr_block}"
   ip_version = 4
@@ -69,7 +69,7 @@ resource "openstack_networking_subnet_v2" "subnet_application" {
 
 
 resource "openstack_networking_router_v2" "router_1" {
-  name             = "${var.environment}_router"
+  name             = "${var.environment}-router"
   external_gateway = "${var.external_gateway_id}"
   admin_state_up = "true"
 }

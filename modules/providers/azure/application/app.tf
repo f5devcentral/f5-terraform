@@ -110,7 +110,7 @@ resource "azurerm_network_security_group" "sg" {
   }
 
   tags {
-      Name           = "${var.environment}_${var.application}_app_sg"
+      Name           = "${var.environment}-${var.application}-app-sg"
       environment    = "${var.environment}"
       owner          = "${var.owner}"
       group          = "${var.group}"
@@ -121,14 +121,14 @@ resource "azurerm_network_security_group" "sg" {
 
 # create public IP 
 resource "azurerm_public_ip" "app_lb_public_ip" {
-    name                          = "${var.environment}-app-lb-public-ip"
+    name                          = "${var.environment}-${var.application}-app-lb-public-ip"
     location                      = "${var.region}"
     resource_group_name           = "${var.resource_group}"
     public_ip_address_allocation  = "dynamic"
     #domain_name_label             = "${var.resource_group}"
 
     tags {
-        Name           = "${var.environment}_app_lb_public_ip"
+        Name           = "${var.environment}-app-lb-public-ip"
         application    = "${var.application}"
         environment    = "${var.environment}"
         owner          = "${var.owner}"
@@ -141,7 +141,7 @@ resource "azurerm_public_ip" "app_lb_public_ip" {
 
 resource "azurerm_lb" "app_lb" {
   depends_on          = [ "azurerm_public_ip.app_lb_public_ip" ]
-  name                = "${var.application}-${var.purpose}-lb"
+  name                = "${var.environment}-${var.application}-${var.purpose}-lb"
   location            = "${var.region}"
   resource_group_name = "${var.resource_group}"
 

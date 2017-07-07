@@ -24,7 +24,7 @@ resource "aws_route_table" "private_route_table" {
   }
 
   tags {
-    Name        = "${var.environment}_private_routing_table"
+    Name        = "${var.environment}-private-routing-table"
     purpose        = "private"
     environment    = "${var.environment}"
     owner          = "${var.owner}"

@@ -24,7 +24,7 @@ resource "aws_route_table" "management_route_table" {
   }
 
   tags {
-    Name        = "${var.environment}_management_routing_table"
+    Name        = "${var.environment}-management-routing-table"
     purpose        = "management"
     environment    = "${var.environment}"
     owner          = "${var.owner}"

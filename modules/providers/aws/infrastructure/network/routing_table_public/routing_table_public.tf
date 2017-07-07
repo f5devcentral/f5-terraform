@@ -25,7 +25,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags {
-    Name        = "${var.environment}_public_routing_table"
+    Name        = "${var.environment}-public-routing-table"
     type           = "public"
     environment    = "${var.environment}"
     owner          = "${var.owner}"

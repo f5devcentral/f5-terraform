@@ -24,7 +24,7 @@ resource "aws_route_table" "application_route_table" {
   }
 
   tags {
-    Name        = "${var.environment}_application_routing_table"
+    Name           = "${var.environment}-application-routing-table"
     purpose        = "application"
     environment    = "${var.environment}"
     owner          = "${var.owner}"

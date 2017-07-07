@@ -44,7 +44,7 @@ provider "openstack" {
 }
 
 resource "openstack_compute_secgroup_v2" "secgroup" {
-  name        = "${var.environment}_app_sg"
+  name        = "${var.environment}-app-sg"
   description = "my security group"
 
   rule {

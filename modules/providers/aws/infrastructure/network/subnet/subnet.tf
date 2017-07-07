@@ -21,7 +21,7 @@ resource "aws_subnet" "subnet" {
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
 
   tags {
-    Name           = "${var.environment}_${var.purpose}_subnet_zone_${var.availability_zone}"
+    Name           = "${var.environment}-${var.purpose}-subnet-zone-${var.availability_zone}"
     purpose        = "${var.purpose}"
     environment    = "${var.environment}"
     owner          = "${var.owner}"

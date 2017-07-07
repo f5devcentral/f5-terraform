@@ -56,7 +56,7 @@ provider "openstack" {
 }
 
 resource "openstack_compute_secgroup_v2" "secgroup" {
-  name        = "${var.environment}_shared_proxy_sg"
+  name        = "${var.environment}-proxy-sg"
   description = "my security group"
 
   rule {
@@ -112,7 +112,7 @@ resource "openstack_networking_floatingip_v2" "myip" {
 }
 
 resource "openstack_compute_instance_v2" "bigip" {
-  name            = "${var.environment}_shared_proxy"
+  name            = "${var.environment}-proxy"
   image_id        = "${var.image_id}"
   flavor_id       = "${var.flavor_id}"
   key_pair        = "${var.ssh_key_name}"

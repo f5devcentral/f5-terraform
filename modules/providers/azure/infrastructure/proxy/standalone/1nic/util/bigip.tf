@@ -122,7 +122,7 @@ resource "azurerm_network_security_group" "sg" {
   }
 
   tags {
-      Name           = "${var.environment}_proxy_sg"
+      Name           = "${var.environment}-proxy-sg"
       environment    = "${var.environment}"
       owner          = "${var.owner}"
       group          = "${var.group}"
@@ -139,7 +139,7 @@ resource "azurerm_public_ip" "public_ip" {
     public_ip_address_allocation = "dynamic"
 
     tags {
-        Name           = "${var.environment}_proxy_public_ip"
+        Name           = "${var.environment}-proxy-public-ip"
         environment    = "${var.environment}"
         owner          = "${var.owner}"
         group          = "${var.group}"
@@ -176,7 +176,7 @@ resource "azurerm_storage_account" "storage_account" {
   account_type        = "Standard_LRS"
 
   tags {
-      Name           = "${var.environment}_proxy_storage_account"
+      Name           = "${var.environment}-proxy-storage-account"
       environment    = "${var.environment}"
       owner          = "${var.owner}"
       group          = "${var.group}"
@@ -269,7 +269,7 @@ resource "azurerm_virtual_machine" "bigip" {
   }
 
   tags {
-    Name           = "${var.environment}_proxy"
+    Name           = "${var.environment}-proxy"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -298,7 +298,7 @@ resource "azurerm_virtual_machine_extension" "run_startup_cmd" {
   SETTINGS
 
   tags {
-    Name           = "${var.environment}_proxy"
+    Name           = "${var.environment}-proxy-startup-cmd"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"

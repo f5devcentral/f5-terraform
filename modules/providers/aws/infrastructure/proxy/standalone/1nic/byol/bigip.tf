@@ -78,8 +78,8 @@ provider "aws" {
 }
 
 resource "aws_security_group" "sg" {
-  name        = "${var.environment}_proxy_sg"
-  description = "${var.environment}_proxy_ports"
+  name        = "${var.environment}-proxy-sg"
+  description = "${var.environment}-proxy-ports"
   vpc_id      = "${var.vpc_id}"
 
   # MGMT ssh access 
@@ -131,7 +131,7 @@ resource "aws_security_group" "sg" {
   }
 
   tags {
-      Name           = "${var.environment}_proxy_sg"
+      Name           = "${var.environment}-proxy-sg"
       environment    = "${var.environment}"
       owner          = "${var.owner}"
       group          = "${var.group}"
@@ -142,7 +142,7 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_iam_role_policy" "proxy_service_discovery_policy" {
-  name = "proxy_service_discovery_policy"
+  name = "proxy-service-discovery-policy"
   role = "${aws_iam_role.proxy_service_discovery_role.id}"
   policy = <<EOF
 {
@@ -170,7 +170,7 @@ EOF
 }
 
 resource "aws_iam_role" "proxy_service_discovery_role" {
-  name = "proxy_service_discovery_role"
+  name = "proxy-service-discovery-role"
 
   assume_role_policy = <<EOF
 {
@@ -191,7 +191,7 @@ EOF
 
 
 resource "aws_iam_instance_profile" "proxy_service_discovery_profile" {
-  name  = "proxy_service_discovery_profile"
+  name  = "proxy-service-discovery-profile"
   role = "${aws_iam_role.proxy_service_discovery_role.name}"
 }
 
@@ -232,7 +232,7 @@ resource "aws_instance" "bigip" {
     key_name = "${var.ssh_key_name}"
     root_block_device { delete_on_termination = true }
     tags {
-      Name           = "${var.environment}_proxy"
+      Name           = "${var.environment}-proxy"
       environment    = "${var.environment}"
       owner          = "${var.owner}"
       group          = "${var.group}"
