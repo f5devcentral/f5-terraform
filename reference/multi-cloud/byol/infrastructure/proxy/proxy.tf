@@ -63,7 +63,7 @@ variable aws_subnet_id {}
 
 ##### AWS COMPUTE:
 variable aws_instance_type { default = "m4.2xlarge" }
-variable aws_amis { 
+variable aws_amis {
     type = "map" 
     default = {
         "ap-northeast-1" = "ami-eb1d2c8c"
@@ -125,7 +125,7 @@ provider "aws" {
 }
 
 module "aws_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.5"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"
@@ -136,8 +136,8 @@ module "aws_proxy" {
   vpc_id                  = "${var.aws_vpc_id}"
   availability_zone       = "${var.aws_availability_zone}"
   subnet_id               = "${var.aws_subnet_id}"
-  image_id                = "${lookup(var.aws_amis, var.aws_region)}"
   instance_type           = "${var.aws_instance_type}"
+  amis                    = "${var.aws_amis}"
   ssh_key_name            = "${var.ssh_key_name}"
   restricted_src_address  = "${var.restricted_src_address}"
   admin_username          = "${var.admin_username}"
@@ -190,7 +190,7 @@ EOF
 }
 
 module "azure_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.5"
   resource_group    = "${azurerm_resource_group.resource_group.name}"
   purpose           = "${var.purpose}"
   environment       = "${var.environment}"
@@ -241,7 +241,7 @@ provider "google" {
 }
 
 module "gce_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.5"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"

@@ -105,22 +105,6 @@ variable vnet_azure_resource_group  { default = "network.example.com" }
 
 ##### APP:
 variable app_aws_instance_type      { default = "t2.small" }
-variable app_aws_amis {     
-    type = "map" 
-    default = {
-        "ap-northeast-1" = "ami-c9e3c0ae"
-        "ap-northeast-2" = "ami-3cda0852"
-        "ap-southeast-1" = "ami-6e74ca0d"
-        "ap-southeast-2" = "ami-92e8e6f1"
-        "eu-central-1" = "ami-1b4d9e74"
-        "eu-west-1" = "ami-b5a893d3"
-        "sa-east-1" = "ami-36187a5a"
-        "us-east-1" = "ami-e4139df2"
-        "us-east-2" = "ami-33ab8f56"
-        "us-west-1" = "ami-30476250"
-        "us-west-2" = "ami-17ba2a77"
-    }
-}
 
 variable app_azure_resource_group   { default = "app.example.com" }
 variable app_azure_instance_type    { default = "Standard_A0" }
@@ -130,22 +114,6 @@ variable app_gce_instance_type      { default = "n1-standard-1" }
 
 ### PROXY 
 variable proxy_aws_instance_type    { default = "m4.2xlarge" }
-variable proxy_aws_amis { 
-    type = "map" 
-    default = {
-        "ap-northeast-1" = "ami-3b1e2f5c"
-        "ap-northeast-2" = "ami-e0dc018e"
-        "ap-southeast-1" = "ami-530eb430"
-        "ap-southeast-2" = "ami-60d8d303"
-        "eu-central-1"   = "ami-c24e91ad"
-        "eu-west-1"      = "ami-1fbdb079"
-        "sa-east-1"      = "ami-d58de1b9"
-        "us-east-1"      = "ami-09721c1f"
-        "us-east-2"      = "ami-3c183f59"
-        "us-west-1"      = "ami-c46f49a4"
-        "us-west-2"      = "ami-6bbd260b"
-    }
-}
 
 variable proxy_azure_resource_group { default = "proxy.example.com" }
 variable proxy_azure_instance_type  { default = "Standard_D3_v2" }

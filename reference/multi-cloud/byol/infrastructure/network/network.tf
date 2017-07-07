@@ -42,7 +42,7 @@ provider "aws" {
 }
 
 module "aws_network"{
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.4"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.5"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -121,7 +121,7 @@ EOF
 }
 
 module "azure_network" {
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/network?ref=v0.0.4"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/network?ref=v0.0.5"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -150,7 +150,7 @@ provider "google" {
 
 
 module "gce_network" {
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/network?ref=v0.0.4"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/network?ref=v0.0.5"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"

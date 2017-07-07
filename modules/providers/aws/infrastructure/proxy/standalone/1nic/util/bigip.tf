@@ -16,7 +16,22 @@ variable subnet_id              {}
 
 # PROXY
 variable instance_type  { default = "m4.2xlarge" }
-variable image_id       {}
+variable amis { 
+    type = "map" 
+    default = {
+        "ap-northeast-1" = "ami-3b1e2f5c"
+        "ap-northeast-2" = "ami-e0dc018e"
+        "ap-southeast-1" = "ami-530eb430"
+        "ap-southeast-2" = "ami-60d8d303"
+        "eu-central-1"   = "ami-c24e91ad"
+        "eu-west-1"      = "ami-1fbdb079"
+        "sa-east-1"      = "ami-d58de1b9"
+        "us-east-1"      = "ami-09721c1f"
+        "us-east-2"      = "ami-3c183f59"
+        "us-west-1"      = "ami-c46f49a4"
+        "us-west-2"      = "ami-6bbd260b"
+    }
+}
 
 ## NETWORK
 variable create_management_public_ip  { default = true }
@@ -201,7 +216,7 @@ data "template_file" "user_data" {
 }
 
 resource "aws_instance" "bigip" {
-    ami = "${var.image_id}"
+    ami = "${lookup(var.amis, var.region)}"
     instance_type = "${var.instance_type}"
     associate_public_ip_address = "${var.create_management_public_ip}"
     availability_zone = "${var.availability_zone}"

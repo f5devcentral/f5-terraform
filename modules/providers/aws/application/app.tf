@@ -16,9 +16,23 @@ variable restricted_src_address { default = "0.0.0.0/0" }
 
 # APPLICATION
 variable docker_image   { default = "f5devcentral/f5-demo-app:AWS" }
-variable image_id       {}
 variable instance_type  { default = "t2.small" }
-
+variable amis {     
+    type = "map" 
+    default = {
+        "ap-northeast-1" = "ami-c9e3c0ae"
+        "ap-northeast-2" = "ami-3cda0852"
+        "ap-southeast-1" = "ami-6e74ca0d"
+        "ap-southeast-2" = "ami-92e8e6f1"
+        "eu-central-1" = "ami-1b4d9e74"
+        "eu-west-1" = "ami-b5a893d3"
+        "sa-east-1" = "ami-36187a5a"
+        "us-east-1" = "ami-e4139df2"
+        "us-east-2" = "ami-33ab8f56"
+        "us-west-1" = "ami-30476250"
+        "us-west-2" = "ami-17ba2a77"
+    }
+}
 
 variable ssh_key_name        {}  # example "my-terraform-key"
 # NOTE certs not used below but keeping as optional input in case need to extend
@@ -100,7 +114,7 @@ data "template_file" "user_data" {
 resource "aws_launch_configuration" "as_conf" {
   name_prefix         = "${var.application}_app_lc_"
   key_name            = "${var.ssh_key_name}"
-  image_id            = "${var.image_id}"
+  image_id            = "${lookup(var.amis, var.region)}"
   instance_type       = "${var.instance_type}"
   security_groups     = ["${aws_security_group.sg.id}"]
   user_data           = "${data.template_file.user_data.rendered}"

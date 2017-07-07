@@ -50,8 +50,22 @@ variable aws_subnet_ids         {}
 
 ##### AWS COMPUTE:
 variable aws_instance_type      { default = "t2.small" }
-variable aws_amis               { type = "map" }
-
+variable aws_amis {     
+    type = "map" 
+    default = {
+        "ap-northeast-1" = "ami-c9e3c0ae"
+        "ap-northeast-2" = "ami-3cda0852"
+        "ap-southeast-1" = "ami-6e74ca0d"
+        "ap-southeast-2" = "ami-92e8e6f1"
+        "eu-central-1" = "ami-1b4d9e74"
+        "eu-west-1" = "ami-b5a893d3"
+        "sa-east-1" = "ami-36187a5a"
+        "us-east-1" = "ami-e4139df2"
+        "us-east-2" = "ami-33ab8f56"
+        "us-west-1" = "ami-30476250"
+        "us-west-2" = "ami-17ba2a77"
+    }
+}
 
 ### AZURE PLACEMENT
 variable azure_region           { default = "West US" } 
@@ -76,7 +90,7 @@ provider "aws" {
 
 
 module "aws_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.5"
   docker_image            = "${var.aws_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -89,7 +103,7 @@ module "aws_app" {
   vpc_id                  = "${var.aws_vpc_id}"
   availability_zones      = "${var.aws_availability_zones}"
   subnet_ids              = "${var.aws_subnet_ids}"
-  image_id                = "${lookup(var.aws_amis, var.aws_region)}"
+  amis                    = "${var.aws_amis}"
   instance_type           = "${var.aws_instance_type}"
   ssh_key_name            = "${var.ssh_key_name}"
   restricted_src_address  = "${var.restricted_src_address}"
@@ -129,7 +143,7 @@ EOF
 }
 
 module "azure_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.5"
   docker_image            = "${var.azure_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"

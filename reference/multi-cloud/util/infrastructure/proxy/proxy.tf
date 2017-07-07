@@ -80,6 +80,7 @@ variable aws_amis {
     }
 }
 
+
 ### AZURE PLACEMENT
 variable azure_region           { default = "West US"         }
 variable azure_location         { default = "westus"          }
@@ -103,7 +104,7 @@ provider "aws" {
 }
 
 module "aws_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/util?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/util?ref=v0.0.5"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"
@@ -115,7 +116,7 @@ module "aws_proxy" {
   availability_zone       = "${var.aws_availability_zone}"
   subnet_id               = "${var.aws_subnet_id}"
   restricted_src_address  = "${var.restricted_src_address}"
-  image_id                = "${lookup(var.aws_amis, var.aws_region)}"
+  amis                    = "${var.aws_amis}"
   instance_type           = "${var.aws_instance_type}"
   ssh_key_name            = "${var.ssh_key_name}"
   admin_username          = "${var.admin_username}"
@@ -167,7 +168,7 @@ EOF
 }
 
 module "azure_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/util?ref=v0.0.4"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/util?ref=v0.0.5"
   purpose           = "${var.purpose}"
   environment       = "${var.environment}"
   application       = "${var.application}"

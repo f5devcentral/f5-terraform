@@ -126,6 +126,7 @@ variable app_aws_amis {
     }
 }
 
+
 variable app_azure_resource_group   { default = "app.example.com" }
 variable app_azure_instance_type    { default = "Standard_A0" }
 variable app_instance_name_prefix   { default = "appvm" }
@@ -134,7 +135,7 @@ variable app_gce_instance_type      { default = "n1-standard-1" }
 
 ### PROXY 
 variable proxy_aws_instance_type    { default = "m4.2xlarge" }
-variable proxy_aws_amis { 
+variable proxy_aws_amis {
     type = "map" 
     default = {
         "ap-northeast-1" = "ami-eb1d2c8c"
