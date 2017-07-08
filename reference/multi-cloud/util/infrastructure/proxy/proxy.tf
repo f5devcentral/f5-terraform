@@ -104,7 +104,7 @@ provider "aws" {
 }
 
 module "aws_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/util?ref=v0.0.5"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/util?ref=v0.0.7"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"
@@ -168,7 +168,7 @@ EOF
 }
 
 module "azure_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/util?ref=v0.0.5"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/util?ref=v0.0.7"
   purpose           = "${var.purpose}"
   environment       = "${var.environment}"
   application       = "${var.application}"

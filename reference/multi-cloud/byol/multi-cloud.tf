@@ -260,13 +260,6 @@ output "gce_subnet_public"      { value = "${module.network.gce_subnet_public}" 
 output "gce_subnet_private"     { value = "${module.network.gce_subnet_private}"  }
 output "gce_subnet_application" { value = "${module.network.gce_subnet_application}"  }
 
-# Outputs less useful. Everything keyed on names.
-# naming policy = 
-# "${var.environment}-network"
-# "${var.environment}-management-subnet"
-# "${var.environment}-public-subnet"
-# "${var.environment}-private-subnet"
-# "${var.environment}-application-subnet"
 
 module "app" {
     source          = "./application"

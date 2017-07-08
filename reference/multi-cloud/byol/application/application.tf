@@ -104,7 +104,7 @@ provider "aws" {
 
 
 module "aws_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.5"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.7"
   docker_image            = "${var.aws_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -158,7 +158,7 @@ EOF
 
 
 module "azure_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.5"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.7"
   docker_image            = "${var.azure_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -194,7 +194,7 @@ provider "google" {
 }
 
 module "gce_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/application?ref=v0.0.5"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/application?ref=v0.0.7"
   docker_image            = "${var.gce_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
