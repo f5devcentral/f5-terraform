@@ -15,9 +15,7 @@ variable purpose          { default = "public"          }
 variable public_ssh_key_path {}
 variable ssh_key_name        {}
 
-# WARNING: Passwords are used in Azure VMs & BIG-IPs
-# Must adhere to 
-# https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq
+# WARNING: Passwords Must adhere to 
 # https://support.f5.com/csp/article/K2873
 # Additionally, as we leverage some shell scripts, must also not contain a few bash special character "$" or spaces. 
 variable admin_username { default = "custom-admin" }
@@ -88,6 +86,41 @@ variable aws_availability_zones     { default = "us-west-2a,us-west-2b" }
 
 ##### APP:
 variable app_aws_instance_type      { default = "t2.small" }
+variable app_aws_amis {     
+    type = "map" 
+    default = {
+        "ap-northeast-1" = "ami-c9e3c0ae"
+        "ap-northeast-2" = "ami-3cda0852"
+        "ap-southeast-1" = "ami-6e74ca0d"
+        "ap-southeast-2" = "ami-92e8e6f1"
+        "eu-central-1" = "ami-1b4d9e74"
+        "eu-west-1" = "ami-b5a893d3"
+        "sa-east-1" = "ami-36187a5a"
+        "us-east-1" = "ami-e4139df2"
+        "us-east-2" = "ami-33ab8f56"
+        "us-west-1" = "ami-30476250"
+        "us-west-2" = "ami-17ba2a77"
+    }
+}
+
+##### PROXY
+variable proxy_aws_instance_type    { default = "m4.2xlarge" }
+variable proxy_aws_amis { 
+    type = "map" 
+    default = {
+        "ap-northeast-1" = "ami-3b1e2f5c"
+        "ap-northeast-2" = "ami-e0dc018e"
+        "ap-southeast-1" = "ami-530eb430"
+        "ap-southeast-2" = "ami-60d8d303"
+        "eu-central-1"   = "ami-c24e91ad"
+        "eu-west-1"      = "ami-1fbdb079"
+        "sa-east-1"      = "ami-d58de1b9"
+        "us-east-1"      = "ami-09721c1f"
+        "us-east-2"      = "ami-3c183f59"
+        "us-west-1"      = "ami-c46f49a4"
+        "us-west-2"      = "ami-6bbd260b"
+    }
+}
 
 
 ###### RESOURCES
@@ -171,20 +204,20 @@ module "aws_app" {
   costcenter              = "${var.costcenter}"
   purpose                 = "${var.purpose}"
   region                  = "${var.aws_region}"
-  vpc_id                  = "${var.aws_vpc_id}"
+  vpc_id                  = "${module.aws_network.vpc_id}"
   availability_zones      = "${var.aws_availability_zones}"
-  subnet_ids              = "${var.aws_subnet_ids}"
-  amis                    = "${var.aws_amis}"
-  instance_type           = "${var.aws_instance_type}"
+  subnet_ids              = "${module.aws_network.application_subnet_ids}"
+  amis                    = "${var.app_aws_amis}"
+  instance_type           = "${var.app_aws_instance_type}"
   ssh_key_name            = "${var.ssh_key_name}"
   restricted_src_address  = "${var.restricted_src_address}"
 }
 
-output "aws_sg_id" { value = "${module.aws_app.sg_id}" }
-output "aws_sg_name" { value = "${module.aws_app.sg_name}" }
+output "app_aws_sg_id" { value = "${module.aws_app.sg_id}" }
+output "app_aws_sg_name" { value = "${module.aws_app.sg_name}" }
 
-output "aws_asg_id" { value = "${module.aws_app.asg_id}" }
-output "aws_asg_name" { value = "${module.aws_app.asg_name}" }
+output "app_aws_asg_id" { value = "${module.aws_app.asg_id}" }
+output "app_aws_asg_name" { value = "${module.aws_app.asg_name}" }
 
 
 module "aws_proxy" {
@@ -196,12 +229,12 @@ module "aws_proxy" {
   group           = "${var.group}"
   costcenter      = "${var.costcenter}"
   region          = "${var.aws_region}"
-  vpc_id                  = "${var.aws_vpc_id}"
-  availability_zone       = "${var.aws_availability_zone}"
-  subnet_id               = "${var.aws_subnet_id}"
+  vpc_id                  = "${module.aws_network.vpc_id}"
+  availability_zone       = "${var.aws_az1}"
+  subnet_id               = "${module.aws_network.subnet_public_a_id}"
   restricted_src_address  = "${var.restricted_src_address}"
-  amis                    = "${var.aws_amis}"
-  instance_type           = "${var.aws_instance_type}"
+  amis                    = "${var.proxy_aws_amis}"
+  instance_type           = "${var.proxy_aws_instance_type}"
   ssh_key_name            = "${var.ssh_key_name}"
   admin_username          = "${var.admin_username}"
   admin_password          = "${var.admin_password}"
@@ -218,11 +251,11 @@ module "aws_proxy" {
   pool_tag_value          = "${var.pool_tag_value}"
 }
 
-output "aws_sg_id" { value = "${module.aws_proxy.sg_id}" }
-output "aws_sg_name" { value = "${module.aws_proxy.sg_name}" }
+output "proxy_aws_sg_id" { value = "${module.aws_proxy.sg_id}" }
+output "proxy_aws_sg_name" { value = "${module.aws_proxy.sg_name}" }
 
-output "aws_instance_id" { value = "${module.aws_proxy.instance_id}"  }
-output "aws_instance_private_ip" { value = "${module.aws_proxy.instance_private_ip}" }
-output "aws_instance_public_ip" { value = "${module.aws_proxy.instance_public_ip}" }
+output "proxy_aws_instance_id" { value = "${module.aws_proxy.instance_id}"  }
+output "proxy_aws_instance_private_ip" { value = "${module.aws_proxy.instance_private_ip}" }
+output "proxy_aws_instance_public_ip" { value = "${module.aws_proxy.instance_public_ip}" }
 
 

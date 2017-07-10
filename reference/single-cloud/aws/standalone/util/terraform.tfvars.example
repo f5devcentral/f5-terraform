@@ -13,8 +13,8 @@ purpose = "public"
 
 public_ssh_key_path =                   # ex. "~/.ssh/my-terraform-key.pem.pub"
 ssh_key_name =                          # ex. "my-terraform-key"
-site_ssl_cert = "../../ssl/website.crt"
-site_ssl_key = "../../ssl/website.key"
+site_ssl_cert = "../../../../ssl/website.crt"
+site_ssl_key = "../../../../website.key"
 
 # restricted_src_address = "0.0.0.0/0"
 
