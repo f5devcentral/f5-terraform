@@ -1,0 +1,35 @@
+# GLOBAL
+
+deployment_name = "demo"
+
+# TAGS 
+application_dns = "www.example.com"
+application = "www"
+environment = "dev"
+owner = "example"
+group = "example"
+costcenter = "cc4353"
+purpose = "public"
+
+## PLACEMENT
+region = "us-west-2"
+availability_zones = "us-west-2a,us-west-2b"
+
+vpc_id =                                # ex. "vpc-e92cebff"
+management_subnet_ids =                 # ex. "subnet-0dad8644,subnet-e908188e"
+public_subnet_ids     =                 # ex. "subnet-a1ac87e8,subnet-f7051590"
+
+public_ssh_key_path =                   # ex. "~/.ssh/my-terraform-key.pem.pub"
+ssh_key_name =                          # ex. "my-terraform-key"
+site_ssl_cert = "../../../../../../../ssl/website.crt"
+site_ssl_key = ".../../../../../../../ssl/website.key"
+
+restricted_src_address = "0.0.0.0/0"
+
+
+# SYSTEM
+# ntp_server = "0.us.pool.ntp.org"
+# timezone = "UTC" 
+
+license_key_1 =                         # ex.  "MXXXX-XXXXX-XXXXX-XXXXX-XXXXXXX" 
+license_key_2 =                         # ex.  "MXXXX-XXXXX-XXXXX-XXXXX-XXXXXXX"

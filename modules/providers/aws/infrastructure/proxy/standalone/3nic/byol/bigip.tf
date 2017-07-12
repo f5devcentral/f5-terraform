@@ -166,8 +166,8 @@ resource "aws_security_group" "management_int_sg" {
 
   # MGMT HTTPS access 
   ingress {
-    from_port   = 8443
-    to_port     = 8443
+    from_port   = "${var.management_gui_port}"
+    to_port     = "${var.management_gui_port}"
     protocol    = "tcp"
     cidr_blocks = ["${var.restricted_src_address}"]
   }
