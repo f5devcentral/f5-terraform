@@ -47,7 +47,7 @@ variable b_application_cidr_block  { default = "10.0.13.0/24" }
 
 #### APPLICATION #### 
 
-variable docker_image       { default = "f5devcentral/f5-demo-app:lates"  }
+variable docker_image       { default = "f5devcentral/f5-demo-app:latest"  }
 variable aws_docker_image   { default = "f5devcentral/f5-demo-app:AWS"    }
 
 variable restricted_src_address { default = "0.0.0.0/0" }
@@ -105,23 +105,25 @@ variable app_aws_amis {
 
 ##### PROXY
 variable proxy_aws_instance_type    { default = "m4.2xlarge" }
-variable proxy_aws_amis { 
+variable proxy_aws_amis {
     type = "map" 
     default = {
-        "ap-northeast-1" = "ami-3b1e2f5c"
-        "ap-northeast-2" = "ami-e0dc018e"
-        "ap-southeast-1" = "ami-530eb430"
-        "ap-southeast-2" = "ami-60d8d303"
-        "eu-central-1"   = "ami-c24e91ad"
-        "eu-west-1"      = "ami-1fbdb079"
-        "sa-east-1"      = "ami-d58de1b9"
-        "us-east-1"      = "ami-09721c1f"
-        "us-east-2"      = "ami-3c183f59"
-        "us-west-1"      = "ami-c46f49a4"
-        "us-west-2"      = "ami-6bbd260b"
+        "ap-northeast-1" = "ami-eb1d2c8c"
+        "ap-northeast-2" = "ami-dcdf02b2"
+        "ap-southeast-1" = "ami-9b08b2f8"
+        "ap-southeast-2" = "ami-67d8d304"
+        "eu-central-1"   = "ami-c74e91a8"
+        "eu-west-1"      = "ami-e56d4b85"
+        "sa-east-1"      = "ami-7d8ee211"
+        "us-east-1"      = "ami-4c76185a"
+        "us-east-2"      = "ami-2be6c14e"
+        "us-west-1"      = "ami-e56d4b85"
+        "us-west-2"      = "ami-a4bc27c4"
     }
 }
 
+# LICENSE
+variable aws_proxy_license_key_1     {}
 
 ###### RESOURCES
 
@@ -221,7 +223,7 @@ output "app_aws_asg_name" { value = "${module.aws_app.asg_name}" }
 
 
 module "aws_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/util?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.7"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"
@@ -249,6 +251,7 @@ module "aws_proxy" {
   pool_name               = "${var.pool_name}"
   pool_tag_key            = "${var.pool_tag_key}"
   pool_tag_value          = "${var.pool_tag_value}"
+  license_key             = "${var.aws_proxy_license_key_1}"
 }
 
 output "proxy_aws_sg_id" { value = "${module.aws_proxy.sg_id}" }

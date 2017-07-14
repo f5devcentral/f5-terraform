@@ -51,7 +51,7 @@ variable restricted_src_address    { default = "0.0.0.0/0" }
 
 #### APPLICATION #### 
 
-variable docker_image       { default = "f5devcentral/f5-demo-app:lates"  }
+variable docker_image       { default = "f5devcentral/f5-demo-app:latest"  }
 variable aws_docker_image   { default = "f5devcentral/f5-demo-app:AWS"    }
 variable azure_docker_image { default = "f5devcentral/f5-demo-app:azure"  }
 variable gce_docker_image   { default = "f5devcentral/f5-demo-app:google" }
@@ -154,7 +154,7 @@ variable proxy_aws_amis {
 
 variable proxy_azure_resource_group { default = "proxy.example.com" }
 variable proxy_azure_instance_type  { default = "Standard_D3_v2" }
-variable proxy_azure_image_name     { default = "f5-bigip-virtual-edition-25m-best-byol" }
+variable proxy_azure_image_name     { default = "f5-bigip-virtual-edition-best-byol" }
 
 # Application
 variable proxy_gce_instance_type    { default = "n1-standard-4" }

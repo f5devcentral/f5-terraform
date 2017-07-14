@@ -19,7 +19,9 @@ site_ssl_key = "../../ssl/website.key"
 # restricted_src_address = "0.0.0.0/0"
 
 # WARNING: Passwords are used in Azure VMs & BIG-IPs
-# Must adhere to https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq
+# Must adhere to 
+# https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq
+# https://support.f5.com/csp/article/K2873
 # Additionally, as we leverage some shell scripts, must also not contain a few bash special character "$" or spaces. 
 admin_username = "custom-admin"
 admin_password =                       # ex. "ExAMple@P1234"  
@@ -146,7 +148,7 @@ pool_azure_sp_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # proxy_azure_resource_group  = "proxy.example.com" 
 # proxy_azure_instance_type   = "Standard_D3_v2" 
-# proxy_azure_image_id        = "f5-bigip-virtual-edition-25m-best-byol" 
+# proxy_azure_image_id        = "f5-bigip-virtual-edition-best-byol" 
 
 # Application
 # proxy_gce_instance_type     = "n1-standard-4" 

@@ -41,16 +41,11 @@ admin_password =                       # ex. "ExAMple@P1234"
 # a_private_cidr_block = "10.0.2.0/24"
 # a_application_cidr_block = "10.0.3.0/24"
 
-# b_management_cidr_block = "10.0.10.0/24"
-# b_public_cidr_block = "10.0.11.0/24"
-# b_private_cidr_block = "10.0.12.0/24"
-# b_application_cidr_block = "10.0.13.0/24"
-
 
 #### APPLICATION #### 
 
 # docker_image = "f5devcentral/f5-demo-app:latest"
-# aws_docker_image = "f5devcentral/f5-demo-app:AWS"
+# google_docker_image = "f5devcentral/f5-demo-app:google"
 
 # AUTO SCALE
 # app_scale_min                     = 1 
@@ -73,48 +68,39 @@ app_notification_email             =              # ex. "user@example.com"
 # pool_tag_key = "Name" 
 # pool_tag_value = "dev-www-instance"
 
+# pool_azure_resource_group = "app.example.com"
+pool_azure_subscription_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+pool_azure_tenant_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+pool_azure_client_id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+pool_azure_sp_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
 
 ######## PROVIDER SPECIFIC #######
 
 ### PLACEMENT
-# AWS
-# aws_region = "us-west-2"
-# aws_az1 = "us-west-2a"
-# aws_az2 = "us-west-2b"
-# aws_availability_zones = "us-west-2a,us-west-2b"
+
+# AZURE
+# azure_region = "West US" 
+# azure_location = "westus"
+
+##### NETWORK
+
+# vnet_azure_resource_group  = "network.example.com" 
 
 
 ##### APP:
-# app_aws_instance_type = "t2.small"
-# app_aws_amis = {     
-#         "ap-northeast-1" = "ami-c9e3c0ae"
-#         "ap-northeast-2" = "ami-3cda0852"
-#         "ap-southeast-1" = "ami-6e74ca0d"
-#         "ap-southeast-2" = "ami-92e8e6f1"
-#         "eu-central-1" = "ami-1b4d9e74"
-#         "eu-west-1" = "ami-b5a893d3"
-#         "sa-east-1" = "ami-36187a5a"
-#         "us-east-1" = "ami-e4139df2"
-#         "us-east-2" = "ami-33ab8f56"
-#         "us-west-1" = "ami-30476250"
-#         "us-west-2" = "ami-17ba2a77"
-# }
+
+# app_azure_resource_group = "app.example.com"
+# app_azure_instance_type = "Standard_A0"
+# app_instance_name_prefix = "appvm"
+
 
 ### PROXY 
-# proxy_aws_instance_type = "m4.2xlarge" 
-# proxy_aws_amis = {
-#         "ap-northeast-1" = "ami-3b1e2f5c"
-#         "ap-northeast-2" = "ami-e0dc018e"
-#         "ap-southeast-1" = "ami-530eb430"
-#         "ap-southeast-2" = "ami-60d8d303"
-#         "eu-central-1"   = "ami-c24e91ad"
-#         "eu-west-1"      = "ami-1fbdb079"
-#         "sa-east-1"      = "ami-d58de1b9"
-#         "us-east-1"      = "ami-09721c1f"
-#         "us-east-2"      = "ami-3c183f59"
-#         "us-west-1"      = "ami-c46f49a4"
-#         "us-west-2"      = "ami-6bbd260b"
-# }
 
+# proxy_azure_resource_group  = "proxy.example.com" 
+# proxy_azure_instance_type   = "Standard_D3_v2" 
+# proxy_azure_image_name      = "f5-bigip-virtual-edition-best-byol"
 
-
+# LICENSE   
+azure_proxy_license_key_1    =           # ex. "ABJDN-WFYWA-AMCCT-LCVMY-HQYFTDF"
+ 

@@ -102,19 +102,9 @@ app_notification_email             =              # ex. "user@example.com"
 
 ### PROXY 
 # proxy_aws_instance_type = "m4.2xlarge" 
-# proxy_aws_amis = {
-#         "ap-northeast-1" = "ami-3b1e2f5c"
-#         "ap-northeast-2" = "ami-e0dc018e"
-#         "ap-southeast-1" = "ami-530eb430"
-#         "ap-southeast-2" = "ami-60d8d303"
-#         "eu-central-1"   = "ami-c24e91ad"
-#         "eu-west-1"      = "ami-1fbdb079"
-#         "sa-east-1"      = "ami-d58de1b9"
-#         "us-east-1"      = "ami-09721c1f"
-#         "us-east-2"      = "ami-3c183f59"
-#         "us-west-1"      = "ami-c46f49a4"
-#         "us-west-2"      = "ami-6bbd260b"
-# }
+# proxy_aws_image_name = "Best"    # ex. "Good, Better or Best"
 
 
-
+### LICENSE
+aws_proxy_license_key_1    =           # ex. "ABJDN-WFYWA-AMCCT-LCVMY-HQYFTDF"
+aws_proxy_license_key_2    =           # ex. "ABJDN-WFYWA-AMCCT-LCVMY-FFFFFFF"

@@ -49,7 +49,7 @@ variable b_application_cidr_block  { default = "10.0.13.0/24" }
 
 #### APPLICATION #### 
 
-variable docker_image       { default = "f5devcentral/f5-demo-app:lates"  }
+variable docker_image       { default = "f5devcentral/f5-demo-app:latest"  }
 variable aws_docker_image   { default = "f5devcentral/f5-demo-app:AWS"    }
 variable azure_docker_image { default = "f5devcentral/f5-demo-app:azure"  }
 variable gce_docker_image   { default = "f5devcentral/f5-demo-app:google" }

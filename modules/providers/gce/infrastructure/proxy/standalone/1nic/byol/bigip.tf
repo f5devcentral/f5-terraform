@@ -16,6 +16,7 @@ variable network    {}
 variable subnet_id  {}
 
 # SYSTEM
+variable instance_name        { default = "f5vm01"  }
 variable dns_server           { default = "8.8.8.8" }
 variable ntp_server           { default = "0.us.pool.ntp.org" }
 variable timezone             { default = "UTC" }
@@ -110,7 +111,7 @@ data "template_file" "user_data" {
 }
 
 resource "google_compute_instance" "bigip" {
-    name = "f5-demo-ve"
+    name = "${var.environment}-${var.instance_name}"
     machine_type = "${var.instance_type}"
     zone = "${var.zone}"
     disk {
