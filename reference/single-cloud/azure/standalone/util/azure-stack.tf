@@ -126,7 +126,7 @@ EOF
 }
 
 module "azure_network" {
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/network?ref=v0.0.7"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/network?ref=v0.0.8"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -172,7 +172,7 @@ EOF
 
 
 module "azure_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.8"
   docker_image            = "${var.azure_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -223,7 +223,7 @@ EOF
 }
 
 module "azure_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/util?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/util?ref=v0.0.8"
   resource_group    = "${azurerm_resource_group.proxy_resource_group.name}"
   purpose           = "${var.purpose}"
   environment       = "${var.environment}"

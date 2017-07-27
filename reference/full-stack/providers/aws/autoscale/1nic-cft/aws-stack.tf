@@ -65,12 +65,20 @@ variable app_notification_email           { default = "user@example.com" }
 
 # SERVICE
 variable vs_dns_name           { default = "www.example.com" }
-variable vs_port               { default = "443"}
+variable vs_port               { default = "80"}
 variable pool_member_address   { default = "10.0.3.4" }
 variable pool_member_port      { default = "80" }
-variable pool_name             { default = "www.example.com" }  # Either DNS or Autoscale Group Name, No spaces allowed
+variable pool_name             { default = "default" }  # Either DNS or Autoscale Group Name, No spaces allowed
 variable pool_tag_key          { default = "Name" }
 variable pool_tag_value        { default = "dev-www-instance" }
+
+# AUTO SCALE
+variable proxy_scale_min                    { default = 1 }
+variable proxy_scale_max                    { default = 3 }
+variable proxy_scale_desired                { default = 2 }
+variable proxy_scale_down_bytes_threshold   { default = "10000" }
+variable proxy_scale_up_bytes_threshold     { default = "35000" }
+variable proxy_notification_email           { default = "user@example.com" }
 
 
 
@@ -105,25 +113,9 @@ variable app_aws_amis {
 
 ##### PROXY
 variable proxy_aws_instance_type    { default = "m4.2xlarge" }
-variable proxy_aws_amis {
-    type = "map" 
-    default = {
-        "ap-northeast-1" = "ami-eb1d2c8c"
-        "ap-northeast-2" = "ami-dcdf02b2"
-        "ap-southeast-1" = "ami-9b08b2f8"
-        "ap-southeast-2" = "ami-67d8d304"
-        "eu-central-1"   = "ami-c74e91a8"
-        "eu-west-1"      = "ami-e56d4b85"
-        "sa-east-1"      = "ami-7d8ee211"
-        "us-east-1"      = "ami-4c76185a"
-        "us-east-2"      = "ami-2be6c14e"
-        "us-west-1"      = "ami-e56d4b85"
-        "us-west-2"      = "ami-a4bc27c4"
-    }
-}
+variable proxy_throughput           { default = "25Mbps" }
 
-# LICENSE
-variable aws_proxy_license_key_1     {}
+
 
 ###### RESOURCES
 
@@ -138,6 +130,7 @@ resource "aws_key_pair" "auth" {
   public_key = "${file(var.public_ssh_key_path)}"
 }
 
+### NETWORK
 
 module "aws_network"{
     source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.8"
@@ -195,6 +188,8 @@ output "aws_application_subnet_ids" { value = "${module.aws_network.application_
 
 
 
+### APP
+
 module "aws_app" {
   source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.8"
   docker_image            = "${var.aws_docker_image}"
@@ -222,43 +217,153 @@ output "app_aws_asg_id" { value = "${module.aws_app.asg_id}" }
 output "app_aws_asg_name" { value = "${module.aws_app.asg_name}" }
 
 
-module "aws_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.8"
-  purpose         = "${var.purpose}"
-  environment     = "${var.environment}"
-  application     = "${var.application}"
-  owner           = "${var.owner}"
-  group           = "${var.group}"
-  costcenter      = "${var.costcenter}"
-  region          = "${var.aws_region}"
+
+### PROXY
+
+resource "aws_security_group" "proxy_lb_sg" {
+  name        = "${var.environment}-proxy-lb-sg"
+  vpc_id      = "${module.aws_network.vpc_id}"
+  description = "Security group for app ELB"
+
+  lifecycle { create_before_destroy = true }
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = 80
+    to_port     = 80
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    protocol    = -1
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {      
+      Name           = "proxy-lb-sg"
+      environment    = "${var.environment}"
+      owner          = "${var.owner}"
+      group          = "${var.group}"
+      costcenter     = "${var.costcenter}"
+      application    = "${var.application}"
+  }
+}
+
+
+resource "aws_iam_server_certificate" "proxy_cert" {
+  name             = "${var.environment}-proxy-crt"
+  certificate_body = "${file(var.site_ssl_cert)}"
+  private_key      = "${file(var.site_ssl_key)}"
+
+  lifecycle { create_before_destroy = true }
+
+  provisioner "local-exec" {
+    command = <<EOF
+      echo "Sleep 10 secends so that the cert is propagated by aws iam service"
+      echo "See https://github.com/hashicorp/terraform/issues/2499 (terraform ~v0.6.1)"
+      sleep 10
+EOF
+  }
+}
+
+resource "aws_elb" "proxy_lb" {
+  name                        = "${var.environment}-proxy-lb"
+  security_groups = ["${aws_security_group.proxy_lb_sg.id}"]
+  subnets         = ["${split(",", module.aws_network.public_subnet_ids)}"]
+  cross_zone_load_balancing   = true
+  connection_draining         = true
+  connection_draining_timeout = 60
+
+  lifecycle { create_before_destroy = true }
+
+  listener {
+    lb_port           = 80
+    lb_protocol       = "http"
+    instance_port     = 80
+    instance_protocol = "http"
+  }
+
+  listener {
+    lb_port            = 443
+    lb_protocol        = "https"
+    instance_port      = 80
+    instance_protocol  = "http"
+    ssl_certificate_id = "${aws_iam_server_certificate.proxy_cert.arn}"
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    timeout             = 10
+    interval            = 15
+    target              = "HTTP:80/"
+  }
+
+  tags {      
+      Name           = "${var.environment}-proxy-lb"
+      environment    = "${var.environment}"
+      owner          = "${var.owner}"
+      group          = "${var.group}"
+      costcenter     = "${var.costcenter}"
+      application    = "${var.application}"
+  }
+}
+
+
+
+module "proxy" {
+  source                  = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.8"
+  deployment_name         = "${var.deployment_name}"
+  purpose                 = "${var.purpose}"
+  environment             = "${var.environment}"
+  application             = "${var.application}"
+  owner                   = "${var.owner}"
+  group                   = "${var.group}"
+  costcenter              = "${var.costcenter}"
+  region                  = "${var.aws_region}"
+  availability_zones      = "${var.aws_availability_zones}"
   vpc_id                  = "${module.aws_network.vpc_id}"
-  availability_zone       = "${var.aws_az1}"
-  subnet_id               = "${module.aws_network.subnet_public_a_id}"
-  restricted_src_address  = "${var.restricted_src_address}"
-  amis                    = "${var.proxy_aws_amis}"
-  instance_type           = "${var.proxy_aws_instance_type}"
+  subnet_ids              = "${module.aws_network.public_subnet_ids}"
   ssh_key_name            = "${var.ssh_key_name}"
+  throughput              = "${var.proxy_throughput}"
+  instance_type           = "${var.proxy_aws_instance_type}"
   admin_username          = "${var.admin_username}"
-  admin_password          = "${var.admin_password}"
-  site_ssl_cert           = "${var.site_ssl_cert}"
-  site_ssl_key            = "${var.site_ssl_key}"
-  dns_server              = "${var.dns_server}"
   ntp_server              = "${var.ntp_server}"
   timezone                = "${var.timezone}"
-  vs_dns_name             = "${var.vs_dns_name}"
   vs_port                 = "${var.vs_port}"
   pool_member_port        = "${var.pool_member_port}"
   pool_name               = "${var.pool_name}"
   pool_tag_key            = "${var.pool_tag_key}"
   pool_tag_value          = "${var.pool_tag_value}"
-  license_key             = "${var.aws_proxy_license_key_1}"
+  notification_email      = "${var.proxy_notification_email}"
+  bigip_elb               = "${aws_elb.proxy_lb.name}"
 }
 
-output "proxy_aws_sg_id" { value = "${module.aws_proxy.sg_id}" }
-output "proxy_aws_sg_name" { value = "${module.aws_proxy.sg_name}" }
+#### OUTPUTS 
 
-output "proxy_aws_instance_id" { value = "${module.aws_proxy.instance_id}"  }
-output "proxy_aws_instance_private_ip" { value = "${module.aws_proxy.instance_private_ip}" }
-output "proxy_aws_instance_public_ip" { value = "${module.aws_proxy.instance_public_ip}" }
+output "proxy_cert_id" { value = "${aws_iam_server_certificate.proxy_cert.id}" }
+output "proxy_cert_name" { value = "${aws_iam_server_certificate.proxy_cert.name}" }
+output "proxy_cert_arn" { value = "${aws_iam_server_certificate.proxy_cert.arn}" }
+
+output "proxy_lb_id" { value = "${aws_elb.proxy_lb.id}" }
+output "proxy_lb_name" { value = "${aws_elb.proxy_lb.name}" }
+output "proxy_lb_dns_name" { value = "${aws_elb.proxy_lb.dns_name}" }
+
+output "bigip_stack_id" { value = "${module.proxy.bigip_stack_id}" }
+output "bigip_stack_outputs" { value = "${module.proxy.bigip_stack_outputs}" }
+output "bigipAutoscaleGroup" { value = "${module.proxy.bigipAutoscaleGroup}" }
+output "s3Bucket" { value = "${module.proxy.s3Bucket}" }
+
+
+
 
 

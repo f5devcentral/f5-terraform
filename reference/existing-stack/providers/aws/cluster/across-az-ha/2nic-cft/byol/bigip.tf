@@ -156,7 +156,7 @@ resource "aws_security_group" "management_sg" {
 
 
 module "proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/cluster/across-az-ha/2nic-cft/byol"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/cluster/across-az-ha/2nic-cft/byol?ref=v0.0.8"
   purpose = "${var.purpose}"
   environment = "${var.environment}"
   application = "${var.application}"

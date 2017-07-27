@@ -128,7 +128,7 @@ resource "aws_key_pair" "auth" {
 
 
 module "aws_network"{
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.7"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.8"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -185,7 +185,7 @@ output "aws_application_subnet_ids" { value = "${module.aws_network.application_
 
 
 module "aws_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.8"
   docker_image            = "${var.aws_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -335,7 +335,7 @@ output "proxy_aws_management_sg_id" { value = "${aws_security_group.management_s
 
 
 module "proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/cluster/across-az-ha/2nic-cft/byol"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/cluster/across-az-ha/2nic-cft/byol?ref=v0.0.8"
   purpose = "${var.purpose}"
   environment = "${var.environment}"
   application = "${var.application}"

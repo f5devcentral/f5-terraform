@@ -42,10 +42,12 @@ variable admin_username {}
 variable site_ssl_cert    {}
 variable site_ssl_key     {}
 
-variable vs_port          { default = "443" }
-variable pool_member_port { default = "80" }
-variable pool_name        { default = "www.example.com" }
-variable policy_level     { default = "high"}
+variable vs_dns_name           { default = "www.example.com" }
+variable vs_port               { default = "80"}
+variable pool_member_port      { default = "80" }
+variable pool_name             { default = "default" }  # Either DNS or Autoscale Group Name, No spaces allowed
+variable pool_tag_key          { default = "Name" }
+variable pool_tag_value        { default = "dev-www-instance" }
 
 # AUTO SCALE 
 variable scale_min                    { default = 2 }
@@ -126,11 +128,11 @@ EOF
 
 resource "aws_elb" "proxy_lb" {
   name                        = "${var.environment}-proxy-lb"
-  connection_draining         = true
-  connection_draining_timeout = 400
-
-  subnets         = ["${split(",", var.subnet_ids)}"]
   security_groups = ["${aws_security_group.proxy_lb_sg.id}"]
+  subnets         = ["${split(",", var.subnet_ids)}"]
+  cross_zone_load_balancing   = true
+  connection_draining         = true
+  connection_draining_timeout = 60
 
   lifecycle { create_before_destroy = true }
 
@@ -167,32 +169,34 @@ resource "aws_elb" "proxy_lb" {
   }
 }
 
-
 module "proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.7"
-  deployment_name = "${var.deployment_name}"
-  purpose = "${var.purpose}"
-  environment = "${var.environment}"
-  application = "${var.application}"
-  owner = "${var.owner}"
-  group = "${var.group}"
-  costcenter = "${var.costcenter}"
-  region = "${var.region}"
-  vpc_id = "${var.vpc_id}"
-  availability_zones = "${var.availability_zones}"
-  subnet_ids = "${var.subnet_ids}"
-  ssh_key_name = "${var.ssh_key_name}"
-  throughput = "${var.throughput}"
-  instance_type = "${var.instance_type}"
-  admin_username = "${var.admin_username}"
-  ntp_server = "${var.ntp_server}"
-  timezone = "${var.timezone}"
-  vs_port = "${var.vs_port}"
-  pool_member_port = "${var.pool_member_port}"
-  pool_name = "${var.pool_name}"
-  notification_email = "${var.notification_email}"
-  bigip_elb = "${aws_elb.proxy_lb.name}"
+  source                  = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.8"
+  deployment_name         = "${var.deployment_name}"
+  purpose                 = "${var.purpose}"
+  environment             = "${var.environment}"
+  application             = "${var.application}"
+  owner                   = "${var.owner}"
+  group                   = "${var.group}"
+  costcenter              = "${var.costcenter}"
+  region                  = "${var.region}"
+  availability_zones      = "${var.availability_zones}"
+  vpc_id                  = "${var.vpc_id}"
+  subnet_ids              = "${var.subnet_ids}"
+  ssh_key_name            = "${var.ssh_key_name}"
+  throughput              = "${var.throughput}"
+  instance_type           = "${var.instance_type}"
+  admin_username          = "${var.admin_username}"
+  ntp_server              = "${var.ntp_server}"
+  timezone                = "${var.timezone}"
+  vs_port                 = "${var.vs_port}"
+  pool_member_port        = "${var.pool_member_port}"
+  pool_name               = "${var.pool_name}"
+  pool_tag_key            = "${var.pool_tag_key}"
+  pool_tag_value          = "${var.pool_tag_value}"
+  notification_email      = "${var.notification_email}"
+  bigip_elb               = "${aws_elb.proxy_lb.name}"
 }
+
 
 #### OUTPUTS 
 

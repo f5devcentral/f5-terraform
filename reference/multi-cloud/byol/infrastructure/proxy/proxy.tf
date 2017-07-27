@@ -125,7 +125,7 @@ provider "aws" {
 }
 
 module "aws_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.8"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"
@@ -190,7 +190,7 @@ EOF
 }
 
 module "azure_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.8"
   resource_group    = "${azurerm_resource_group.resource_group.name}"
   purpose           = "${var.purpose}"
   environment       = "${var.environment}"
@@ -241,7 +241,7 @@ provider "google" {
 }
 
 module "gce_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.8"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"

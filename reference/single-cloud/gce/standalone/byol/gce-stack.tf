@@ -101,7 +101,7 @@ provider "google" {
 
 
 module "gce_network" {
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/network?ref=v0.0.7"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/network?ref=v0.0.8"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -123,7 +123,7 @@ output "gce_subnet_application" { value = "${module.gce_network.subnet_applicati
 
 
 module "gce_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/application?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/application?ref=v0.0.8"
   docker_image      = "${var.gce_docker_image}"
   application_dns   = "${var.application_dns}"
   application       = "${var.application}"
@@ -147,7 +147,7 @@ output "app_gce_lb_public_ip" { value = "${module.gce_app.lb_public_ip}" }
 
 
 module "gce_proxy" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.7"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/gce/infrastructure/proxy/standalone/1nic/byol?ref=v0.0.8"
   purpose         = "${var.purpose}"
   environment     = "${var.environment}"
   application     = "${var.application}"
