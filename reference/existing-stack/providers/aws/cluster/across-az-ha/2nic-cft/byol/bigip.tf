@@ -68,10 +68,17 @@ resource "aws_security_group" "public_sg" {
   }
   # Sync or GTM Discovery access from anywhere
   ingress {
-    from_port   = "${var.management_gui_port}"
-    to_port     = "${var.management_gui_port}"
+    from_port   = 4353
+    to_port     = 4353
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  # HA Heartbeat
+  ingress {
+    from_port   = 1026
+    to_port     = 1026
+    protocol    = "udp"
+    cidr_blocks = ["10.0.0.0/8"]
   }
   # ping access from internal
   ingress {
@@ -170,29 +177,29 @@ module "proxy" {
   license_key_2 = "${var.license_key_2}"
 }
 
-output "bigip_stack_id" { value = "${module.proxy.bigip_stack_id}}" }
-output "bigip_stack_outputs" { value = "${module.proxy.bigip_stack_outputs}}" }
+output "bigip_stack_id" { value = "${module.proxy.bigip_stack_id}" }
+output "bigip_stack_outputs" { value = "${module.proxy.bigip_stack_outputs}" }
 
-output "Bigip1ExternalInterfacePrivateIp" { value = "${module.proxy.Bigip1ExternalInterfacePrivateIp}}" }
-output "Bigip1InstanceId" { value = "${module.proxy.Bigip1InstanceId}}" }
-output "Bigip1ManagementEipAddress" { value = "${module.proxy.Bigip1ManagementEipAddress}}" }
-output "Bigip1ManagementInterface" { value = "${module.proxy.Bigip1ManagementEipAddress}}" }
-output "Bigip1ManagementInterfacePrivateIp" { value = "${module.proxy.Bigip1ManagementInterfacePrivateIp}}" }
-output "Bigip1Url" { value = "${module.proxy.Bigip1Url}}" }
-output "Bigip1VipEipAddress" { value = "${module.proxy.Bigip1VipEipAddress}}" }
-output "Bigip1VipPrivateIp" { value = "${module.proxy.Bigip1VipPrivateIp}}" }
-output "Bigip1subnet1Az1Interface" { value = "${module.proxy.Bigip1subnet1Az1Interface}}" }
-output "Bigip1subnet1Az1SelfEipAddress" { value = "${module.proxy.Bigip1subnet1Az1SelfEipAddress}}" }
-output "availabilityZone1" { value = "${module.proxy.availabilityZone1}}" }
+output "Bigip1ExternalInterfacePrivateIp" { value = "${module.proxy.Bigip1ExternalInterfacePrivateIp}" }
+output "Bigip1InstanceId" { value = "${module.proxy.Bigip1InstanceId}" }
+output "Bigip1ManagementEipAddress" { value = "${module.proxy.Bigip1ManagementEipAddress}" }
+output "Bigip1ManagementInterface" { value = "${module.proxy.Bigip1ManagementEipAddress}" }
+output "Bigip1ManagementInterfacePrivateIp" { value = "${module.proxy.Bigip1ManagementInterfacePrivateIp}" }
+output "Bigip1Url" { value = "${module.proxy.Bigip1Url}" }
+output "Bigip1VipEipAddress" { value = "${module.proxy.Bigip1VipEipAddress}" }
+output "Bigip1VipPrivateIp" { value = "${module.proxy.Bigip1VipPrivateIp}" }
+output "Bigip1subnet1Az1Interface" { value = "${module.proxy.Bigip1subnet1Az1Interface}" }
+output "Bigip1subnet1Az1SelfEipAddress" { value = "${module.proxy.Bigip1subnet1Az1SelfEipAddress}" }
+output "availabilityZone1" { value = "${module.proxy.availabilityZone1}" }
 
-output "Bigip2ExternalInterfacePrivateIp" { value = "${module.proxy.Bigip2ExternalInterfacePrivateIp}}" }
-output "Bigip2InstanceId" { value = "${module.proxy.Bigip2InstanceId}}" }
-output "Bigip2ManagementEipAddress" { value = "${module.proxy.Bigip2ManagementEipAddress}}" }
-output "Bigip2ManagementInterface" { value = "${module.proxy.Bigip2ManagementEipAddress}}" }
-output "Bigip2ManagementInterfacePrivateIp" { value = "${module.proxy.Bigip2ManagementInterfacePrivateIp}}" }
-output "Bigip2Url" { value = "${module.proxy.Bigip2Url}}" }
-output "Bigip2VipEipAddress" { value = "${module.proxy.Bigip2VipEipAddress}}" }
-output "Bigip2VipPrivateIp" { value = "${module.proxy.Bigip2VipPrivateIp}}" }
-output "Bigip2subnet1Az2Interface" { value = "${module.proxy.Bigip2subnet1Az2Interface}}" }
-output "Bigip2subnet1Az2SelfEipAddress" { value = "${module.proxy.Bigip2subnet1Az2SelfEipAddress}}" }
-output "availabilityZone2" { value = "${module.proxy.availabilityZone2}}" }
+output "Bigip2ExternalInterfacePrivateIp" { value = "${module.proxy.Bigip2ExternalInterfacePrivateIp}" }
+output "Bigip2InstanceId" { value = "${module.proxy.Bigip2InstanceId}" }
+output "Bigip2ManagementEipAddress" { value = "${module.proxy.Bigip2ManagementEipAddress}" }
+output "Bigip2ManagementInterface" { value = "${module.proxy.Bigip2ManagementEipAddress}" }
+output "Bigip2ManagementInterfacePrivateIp" { value = "${module.proxy.Bigip2ManagementInterfacePrivateIp}" }
+output "Bigip2Url" { value = "${module.proxy.Bigip2Url}" }
+output "Bigip2VipEipAddress" { value = "${module.proxy.Bigip2VipEipAddress}" }
+output "Bigip2VipPrivateIp" { value = "${module.proxy.Bigip2VipPrivateIp}" }
+output "Bigip2subnet1Az2Interface" { value = "${module.proxy.Bigip2subnet1Az2Interface}" }
+output "Bigip2subnet1Az2SelfEipAddress" { value = "${module.proxy.Bigip2subnet1Az2SelfEipAddress}" }
+output "availabilityZone2" { value = "${module.proxy.availabilityZone2}" }

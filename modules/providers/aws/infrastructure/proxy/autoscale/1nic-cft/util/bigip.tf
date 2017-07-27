@@ -43,7 +43,9 @@ variable admin_username {}
 # APPLICATION
 variable vs_port          { default = "443" }
 variable pool_member_port { default = "80" }
-variable pool_name        { default = "www.example.com" }
+variable pool_name        { default = "default" }  # DNS (ex. "www.example.com") used to create fqdn node if there's no Service Discovery iApp 
+variable pool_tag_key     { default = "Name" }
+variable pool_tag_value   { default = "dev-www-instance" }
 variable policy_level     { default = "high"}
 
 # AUTO SCALE 
@@ -84,6 +86,8 @@ resource "aws_cloudformation_stack" "bigip_stack" {
       virtualServicePort = "${var.vs_port}"
       applicationPort = "${var.pool_member_port}"
       appInternalDnsName = "${var.pool_name}"
+      applicationPoolTagKey = "${var.pool_tag_key}"
+      applicationPoolTagValue = "${var.pool_tag_value}"
       policyLevel = "${var.policy_level}"
       environment = "${var.environment}"
       application = "${var.application}"
