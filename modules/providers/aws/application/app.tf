@@ -137,6 +137,9 @@ resource "aws_autoscaling_group" "asg" {
   launch_configuration      = "${aws_launch_configuration.as_conf.name}"
   lifecycle {
     create_before_destroy = true
+  }
+  provisioner "local-exec" {
+    command = "sleep 120"
   }  
   tag {
     key = "Name"
