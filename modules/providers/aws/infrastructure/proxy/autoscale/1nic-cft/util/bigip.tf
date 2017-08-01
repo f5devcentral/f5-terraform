@@ -61,9 +61,10 @@ variable notification_email           {}
 ### RESOURCES ###
 
 resource "aws_cloudformation_stack" "bigip_stack" {
+  # name must use "-" vs. "_". "StackName: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]"
   name = "${var.environment}-proxy-stack"
   capabilities = [ "CAPABILITY_IAM" ]
-  # name must use "-" vs. "_". "StackName: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]"
+  timeout_in_minutes = 60
   parameters {
       deploymentName = "${var.deployment_name}"
       vpc = "${var.vpc_id}"
