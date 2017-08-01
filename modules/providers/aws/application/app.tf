@@ -126,7 +126,7 @@ resource "aws_launch_configuration" "as_conf" {
 
 # NOTE App Pool Name Hardcoded
 resource "aws_autoscaling_group" "asg" {
-  name                      = "${var.environment}-${var.application}-app-asg"
+  name                      = "${var.environment}-${var.application} - ${aws_launch_configuration.as_conf.name}"
   vpc_zone_identifier       = ["${split(",", var.subnet_ids)}"] 
   availability_zones        = ["${split(",", var.availability_zones)}"]
   min_size                  = "${var.scale_min}"
@@ -135,6 +135,9 @@ resource "aws_autoscaling_group" "asg" {
   health_check_type         = "EC2"
   force_delete              = true
   launch_configuration      = "${aws_launch_configuration.as_conf.name}"
+  lifecycle {
+    create_before_destroy = true
+  }  
   tag {
     key = "Name"
     value = "${var.environment}-${var.application}-instance"
