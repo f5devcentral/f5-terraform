@@ -170,7 +170,7 @@ resource "aws_elb" "proxy_lb" {
 }
 
 module "proxy" {
-  source                  = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.8"
+  source                  = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.9"
   deployment_name         = "${var.deployment_name}"
   purpose                 = "${var.purpose}"
   environment             = "${var.environment}"

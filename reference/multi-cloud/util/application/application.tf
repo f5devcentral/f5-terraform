@@ -90,7 +90,7 @@ provider "aws" {
 
 
 module "aws_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.8"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.9"
   docker_image            = "${var.aws_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -143,7 +143,7 @@ EOF
 }
 
 module "azure_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.8"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/azure/application?ref=v0.0.9"
   docker_image            = "${var.azure_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"

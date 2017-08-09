@@ -39,7 +39,7 @@ provider "aws" {
 }
 
 module "aws_network"{
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.8"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.9"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -119,7 +119,7 @@ EOF
 
 
 module "azure_network" {
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/network?ref=v0.0.8"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/azure/infrastructure/network?ref=v0.0.9"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"

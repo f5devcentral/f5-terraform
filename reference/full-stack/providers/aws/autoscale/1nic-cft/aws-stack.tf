@@ -133,7 +133,7 @@ resource "aws_key_pair" "auth" {
 ### NETWORK
 
 module "aws_network"{
-    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.8"
+    source         = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/network?ref=v0.0.9"
     environment    = "${var.environment}"
     owner          = "${var.owner}"
     group          = "${var.group}"
@@ -191,7 +191,7 @@ output "aws_application_subnet_ids" { value = "${module.aws_network.application_
 ### APP
 
 module "aws_app" {
-  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.8"
+  source = "github.com/f5devcentral/f5-terraform//modules/providers/aws/application?ref=v0.0.9"
   docker_image            = "${var.aws_docker_image}"
   application_dns         = "${var.application_dns}"
   application             = "${var.application}"
@@ -321,7 +321,7 @@ resource "aws_elb" "proxy_lb" {
 
 
 module "proxy" {
-  source                  = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.8"
+  source                  = "github.com/f5devcentral/f5-terraform//modules/providers/aws/infrastructure/proxy/autoscale/1nic-cft/util?ref=v0.0.9"
   deployment_name         = "${var.deployment_name}"
   purpose                 = "${var.purpose}"
   environment             = "${var.environment}"
