@@ -2,13 +2,15 @@
 ### NOTICE: 
 
 Please note, the official terraform BIG-IP provider is located here:
-[terraform bigip provider](https://www.terraform.io/docs/providers/bigip/index.html)
-[github](https://github.com/F5Networks/terraform-provider-bigip)
-Please direct all official terraform inquiries there. 
 
-The official [BIG-IP provider] (https://www.terraform.io/docs/providers/bigip/index.html) above contains native resources to help facilitate provisioning services on BIG-IPs themselves. 
+ - [terraform bigip provider](https://www.terraform.io/docs/providers/bigip/index.html)
+ - [github](https://github.com/F5Networks/terraform-provider-bigip)
 
-On the other hand, this unofficial project contains templates/modules that demonstrate deploying the actual BIG-IP Virtual Edition instances themselves. This project contains has not been updated in a very long time but still serves as an additional reference and placeholder for similar deployment examples.  Stay tuned.
+Please direct all official terraform inquiries to above. 
+
+The official [BIG-IP provider](https://www.terraform.io/docs/providers/bigip/index.html) above contains native resources to help facilitate provisioning services on BIG-IPs themselves. 
+
+On the other hand, this unofficial project contains templates/modules that demonstrate deploying the actual BIG-IP Virtual Edition instances themselves. This project contains has not been updated in a very long time but still serves as an additional reference and placeholder for similar deployment examples. *Stay tuned*
 
 
 # TERRAFORM
@@ -151,10 +153,11 @@ terraform apply
 ### REFERENCE LINKS
 
 Please note, the official terraform BIG-IP provider is located here:
-[terraform bigip provider](https://www.terraform.io/docs/providers/bigip/index.html)
-[github](https://github.com/F5Networks/terraform-provider-bigip)
-Please direct all official terraform inquiries there. 
 
+ - [terraform bigip provider](https://www.terraform.io/docs/providers/bigip/index.html)
+ - [github](https://github.com/F5Networks/terraform-provider-bigip)
+
+Please direct all official inquries to above.  
 
  - https://github.com/hashicorp/best-practices/tree/master/terraform/modules/
  - https://www.contino.io/insights/terraform-cloud-made-easy-part-one
