@@ -1,3 +1,16 @@
+
+### NOTICE: 
+
+Please note, the official terraform BIG-IP provider is located here:
+[terraform bigip provider](https://www.terraform.io/docs/providers/bigip/index.html)
+[github](https://github.com/F5Networks/terraform-provider-bigip)
+Please direct all official terraform inquiries there. 
+
+The official [BIG-IP provider] (https://www.terraform.io/docs/providers/bigip/index.html) above contains native resources to help facilitate provisioning services on BIG-IPs themselves. 
+
+On the other hand, this unofficial project contains templates/modules that demonstrate deploying the actual BIG-IP Virtual Edition instances themselves. This project contains has not been updated in a very long time but still serves as an additional reference and placeholder for similar deployment examples.  Stay tuned.
+
+
 # TERRAFORM
 
 This project contains examples of how to deploy F5 services with terraform. 
@@ -137,15 +150,19 @@ terraform apply
 
 ### REFERENCE LINKS
 
+Please note, the official terraform BIG-IP provider is located here:
+[terraform bigip provider](https://www.terraform.io/docs/providers/bigip/index.html)
+[github](https://github.com/F5Networks/terraform-provider-bigip)
+Please direct all official terraform inquiries there. 
+
+
  - https://github.com/hashicorp/best-practices/tree/master/terraform/modules/
  - https://www.contino.io/insights/terraform-cloud-made-easy-part-one
  - https://blog.gruntwork.io/how-to-create-reusable-infrastructure-with-terraform-modules-25526d65f73d
  - https://blog.gruntwork.io/terraform-tips-tricks-loops-if-statements-and-gotchas-f739bbae55f9
  - https://blog.threatstack.com/incorporating-aws-security-best-practices-into-terraform-design
 
-In addition, the folks at dealer.com have also created a BIG-IP provider worth checking out!
 
- - https://github.com/DealerDotCom/terraform-provider-bigip
 
 
 ### TESTING NOTES
@@ -171,5 +188,3 @@ https://github.com/terraform-providers/terraform-provider-azurerm/issues/111 - D
 - Feature Parity:
     * https://github.com/hashicorp/terraform/issues/1552 - aws: Allow rolling updates for ASGs
     * https://github.com/hashicorp/terraform/issues/12889 - Include auto scale settings for Azure VM scale sets
-
-
